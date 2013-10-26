@@ -47,7 +47,9 @@ Ext.define('RespiraXixon.view.InicioTabPanel', {
                 title: 'Ficheros',
                 iconCls: 'info',
                 items:[
-                    Ext.create('RespiraXixon.view.FicherosTabPanel')
+	                {
+	                    xtype: 'ficherostabpanel'
+	                }
                 ]
             }
         ]

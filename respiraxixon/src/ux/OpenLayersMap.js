@@ -304,9 +304,6 @@ Ext.define('Ext.ux.OpenLayersMap', {
 			
 			// if no center property is given -> use default position
 
-                console.log(mapOptions.center);
-                console.log(mapOptions.center instanceof ol.LonLat);
-                
                 if (!mapOptions.hasOwnProperty('center') || !(mapOptions.center instanceof ol.LonLat)) {
                     mapOptions.center = new ol.LonLat(8.539183, 47.36865); // default: Zuerich
             }   

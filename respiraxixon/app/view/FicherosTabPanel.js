@@ -15,7 +15,8 @@
 
 Ext.define('RespiraXixon.view.FicherosTabPanel', {
     extend: 'Ext.tab.Panel',
-
+	xtype : 'ficherostabpanel',
+	requires: ['RespiraXixon.store.Estaciones','RespiraXixon.store.Indices','RespiraXixon.store.Contaminantes'],
     config: {
         items: [
             {
@@ -80,14 +81,6 @@ Ext.define('RespiraXixon.view.FicherosTabPanel', {
                             '    '
                         ],
                         store: 'Indices'
-                    },
-                    {
-                        xtype: 'panel',
-                        ui: '',
-                        layout: {
-                            type: 'card'
-                        },
-                        scrollable: true
                     }
                 ]
             }

@@ -21,7 +21,7 @@ Ext.define('RespiraXixon.store.Estaciones', {
     ],
 
     config: {
-        autoLoad: true,
+        autoLoad: false,
         model: 'RespiraXixon.model.Estacion',
         storeId: 'Estaciones',
         proxy: {
