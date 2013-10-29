@@ -21,6 +21,7 @@ Ext.define('RespiraXixon.view.FicherosTabPanel', {
         items: [
             {
                 xtype: 'container',
+                autoLoad: true,
                 title: 'Estaciones',
                 ui: '',
                 layout: {
@@ -30,6 +31,7 @@ Ext.define('RespiraXixon.view.FicherosTabPanel', {
                 items: [
                     {
                         xtype: 'list',
+                        autoLoad: true,
                         itemTpl: [
                             '<div>Estacion: {id} - {titulo}</div>',
                             '<div>Direccion: {direccion}, {poblacion}, {provincia}</div>',
@@ -44,6 +46,7 @@ Ext.define('RespiraXixon.view.FicherosTabPanel', {
             },
             {
                 xtype: 'container',
+                autoLoad: true,
                 title: 'Contaminantes',
                 ui: '',
                 layout: {
@@ -52,6 +55,7 @@ Ext.define('RespiraXixon.view.FicherosTabPanel', {
                 items: [
                     {
                         xtype: 'list',
+                        autoLoad: true,
                         ui: 'round',
                         itemTpl: [
                             '<div>Estacion: {estacion} - {titulo}</div>',
@@ -64,6 +68,7 @@ Ext.define('RespiraXixon.view.FicherosTabPanel', {
             },
             {
                 xtype: 'container',
+                autoLoad: true,
                 title: 'Indices',
                 ui: '',
                 layout: {
@@ -72,6 +77,7 @@ Ext.define('RespiraXixon.view.FicherosTabPanel', {
                 items: [
                     {
                         xtype: 'list',
+                        autoLoad: true,
                         ui: 'round',
                         itemTpl: [
                             '<div>Organizacion: {organizacion}</div>',

@@ -15,7 +15,8 @@
 
 Ext.define('RespiraXixon.view.InicioTabPanel', {
     extend: 'Ext.tab.Panel',
-    requires: ['Ext.ux.OpenLayersMap'],
+    requires: ['Ext.ux.OpenLayersMap','RespiraXixon.view.ListaLayers'],
+    views: ['FicherosTabPanel'],
 	
     config: {
         tabBar: {
@@ -23,10 +24,11 @@ Ext.define('RespiraXixon.view.InicioTabPanel', {
         },	
         items: [
             {
-                xtype:'container',
+                xtype:'panel',
                 title: 'Mapa',
                 iconCls: 'maps',
                 layout: 'fit',
+                id: 'iniciotab',
                 itemId: 'InicioTab',
                 items: [
                         {

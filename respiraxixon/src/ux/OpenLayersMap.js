@@ -99,7 +99,12 @@ Ext.define('Ext.ux.OpenLayersMap', {
 		 * If set all LonLat-Objects will be transformed to given projection.
 		 * @accessor
 		 */
-		transformProjections: null
+		transformProjections: null,
+		
+		/*
+		 * Añado el nombre de la capa 
+		 */
+		layerName:"Capa Base"
 	},
 	
 	constructor: function() {
@@ -116,7 +121,7 @@ Ext.define('Ext.ux.OpenLayersMap', {
 					to: new ol.Projection("EPSG:3857")
 				});
 			}
-			this.setLayer(new ol.Layer[this.getLayerKey()](this.getLayerOptions()));
+			this.setLayer(new ol.Layer[this.getLayerKey()](this.getLayerName(),null,this.getLayerOptions()));
 		}
 		
 		this.addEvents(
@@ -311,7 +316,6 @@ Ext.define('Ext.ux.OpenLayersMap', {
 			me.transformLonLatObject(mapOptions.center);
 			
 			mapOptions.layers = [layer];
-			
 			me.setMap(new ol.Map(element.dom, mapOptions));
 			map = me.getMap();
 			

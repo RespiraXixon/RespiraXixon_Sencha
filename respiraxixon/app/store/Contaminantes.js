@@ -21,7 +21,7 @@ Ext.define('RespiraXixon.store.Contaminantes', {
     ],
 
     config: {
-        autoLoad: false,
+        autoLoad: true,
         model: 'RespiraXixon.model.Contaminante',
         storeId: 'Contaminantes',
         proxy: {

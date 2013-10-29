@@ -20,7 +20,8 @@ Ext.application({
      models: [
         'Estacion',
         'Contaminante',
-        'Indices'
+        'Indices',
+        'Detalle_Estacion'
     ],
     stores: [
         'Estaciones',
@@ -28,8 +29,8 @@ Ext.application({
         'Indices'
     ],
     views: [
-        'FicherosTabPanel',
-        'InicioTabPanel'
+        'InicioTabPanel',
+        'FicherosTabPanel'
     ],
     controllers :[
     	'Mapa'

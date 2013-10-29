@@ -51,11 +51,17 @@
     </style>
     <!-- The line below must be kept intact for Sencha Command to build your application--> 
     <script id="microloader" type="text/javascript" src=".sencha/app/microloader/development.js"></script>
+	<!-- CSS OpenLayers-->
+	<link rel="stylesheet" href="resources/styles/styles.css" type="text/css">
 
 	<!--Librerias Agregadas para trabajar con Open Layer -->    
+	<!--
     <script src="src/OpenLayers/OpenLayers.mobile.js" id="OpenLayers"></script>
+    <script src="src/OpenLayers/OpenLayers.js" id="OpenLayers"></script>
+    -->
+    <script src="src/OpenLayers/OpenLayers.mobile.js" id="OpenLayers"></script>
+    <script src="src/OpenLayers/OpenLayers/Control/LayerSwitcher.js" id="LayerSwitcher"></script>
     <script src="src/ux/OpenLayersMap.js" id="Ext.ux.OpenLayersMap"></script>
-
     
 </head>
 <body>
