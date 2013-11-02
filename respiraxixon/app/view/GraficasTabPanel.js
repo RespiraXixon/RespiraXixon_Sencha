@@ -13,22 +13,22 @@
  * Do NOT hand edit this file.
  */
 
-Ext.define('RespiraXixon.view.FicherosTabPanel', {
+Ext.define('RespiraXixon.view.GraficasTabPanel', {
     extend: 'Ext.tab.Panel',
-	xtype : 'ficherostabpanel',
-	requires: ['RespiraXixon.store.Estaciones','RespiraXixon.store.Indices','RespiraXixon.store.Contaminantes'],
+	xtype : 'graficastabpanel',
+	requires: ['RespiraXixon.store.Contaminantes'],
     config: {
         items: [
             {
                 xtype: 'container',
-                autoLoad: true,
-                title: 'Estaciones',
+                title: 'Gráficas',
                 ui: '',
                 layout: {
                     type: 'card'
                 },
                 scrollable: true,
                 items: [
+                /*
                     {
                         xtype: 'list',
                         autoLoad: true,
@@ -38,13 +38,12 @@ Ext.define('RespiraXixon.view.FicherosTabPanel', {
                             '<div>Coordenadas: {latitud} - {longitud}</div>'
                         ],
                         store: 'Estaciones'
-                    }
+                    }*/
                 ]
             },
             {
                 xtype: 'container',
-                autoLoad: true,
-                title: 'Contaminantes',
+                title: 'Datos',
                 ui: '',
                 layout: {
                     type: 'card'
@@ -52,42 +51,33 @@ Ext.define('RespiraXixon.view.FicherosTabPanel', {
                 items: [
                     {
                         xtype: 'list',
-                        autoLoad: true,
+                        id:"lista",
                         ui: 'round',
                         itemTpl: [
-                            '<div>Estacion: {estacion} - {titulo}</div>',
-                            '<div>Coordenadas: {latitud} - {longitud}</div>',
-                            '<div>Co: {co} Pm10:{pm10} So2:{so2} No:{no} O3:{o3}</div>'
-                        ],
-                        store: 'Contaminantes'
-                    }
-                ]
-            },
-            {
-                xtype: 'container',
-                autoLoad: true,
-                title: 'Indices',
-                ui: '',
-                layout: {
-                    type: 'card'
-                },
-                items: [
-                    {
-                        xtype: 'list',
-                        autoLoad: true,
-                        ui: 'round',
-                        itemTpl: [
-                            '<div>Organizacion: {organizacion}</div>',
+                            '<div>Organizacion: {organizacion}</div>'/*,
                             '<div>Contaminante: {contaminante}</div>',
                             '<div>Indice: {indice}</div>',
                             '<div>Calidad: {calidad}</div>',
-                            '    '
+                            '    '*/
                         ],
-                        store: 'Indices'
+	     				painted: function(){
+								console.log("Activa");
+								var lista=Ext.getCmp("lista");
+								console.log(Ext.getStore("Detalle_estaciones"));
+								lista.setStore("Detalle_Estaciones");
+								lista.refresh();
+								this.callParent(arguments);
+						}
                     }
                 ]
             }
         ]
-    }
-
+    },
+	initialize: function()
+	{
+		var rxUtils= Ext.create("Ext.ux.RXUtils");
+		rxUtils.calcula_medias();
+		rxUtils.calcula_indices();
+		this.callParent(arguments);
+	}
 });

@@ -15,8 +15,7 @@
 
 Ext.define('RespiraXixon.view.InicioTabPanel', {
     extend: 'Ext.tab.Panel',
-    requires: ['Ext.ux.OpenLayersMap','RespiraXixon.view.ListaLayers'],
-    views: ['FicherosTabPanel'],
+    requires: ['Ext.ux.OpenLayersMap','RespiraXixon.view.FicherosTabPanel','RespiraXixon.view.GraficasTabPanel'],
 	
     config: {
         tabBar: {
@@ -30,6 +29,7 @@ Ext.define('RespiraXixon.view.InicioTabPanel', {
                 layout: 'fit',
                 id: 'iniciotab',
                 itemId: 'InicioTab',
+                layoutOnTabChange: true,
                 items: [
                         {
                             // Ext.ux.OpenLayersMap Component
@@ -40,18 +40,32 @@ Ext.define('RespiraXixon.view.InicioTabPanel', {
                             mapOptions: {
                                 zoom: 13,
                                 center: {longitude:-5.6626443, latitude:43.5450394}
-                            }
+                        	}
                         }
-                ]
+             		]
             },
             {
                 xtype: 'container',
                 title: 'Ficheros',
+                layout: 'fit',
                 iconCls: 'info',
                 items:[
 	                {
 	                    xtype: 'ficherostabpanel'
 	                }
+	            
+                ]
+            },
+            {
+                xtype: 'container',
+                title: 'Gráficas',
+                layout: 'fit',
+                iconCls: 'favorites',
+                items:[
+	                {
+	                    xtype: 'graficastabpanel'
+	                }
+	            
                 ]
             }
         ]

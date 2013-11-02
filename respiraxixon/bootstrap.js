@@ -6,6 +6,7 @@
  */
 Ext.Loader.addClassPathMappings({
   "Ext": "touch/src",
+  "Ext.data.reader.Json": "src/ux/data/reader/EstacionesJson.js",
   "Ext.device.Purchases.Product": "touch/src/device/purchases/Sencha.js",
   "Ext.device.filesystem.DirectoryEntry": "touch/src/device/filesystem/HTML5.js",
   "Ext.device.filesystem.Entry": "touch/src/device/filesystem/HTML5.js",
@@ -17,6 +18,8 @@ Ext.Loader.addClassPathMappings({
   "Ext.device.sqlite.SQLResultSetRowList": "touch/src/device/sqlite/Sencha.js",
   "Ext.device.sqlite.SQLTransaction": "touch/src/device/sqlite/Sencha.js",
   "Ext.draw.engine.SvgContext.Gradient": "touch/src/draw/engine/SvgContext.js",
+  "Ext.ux.OpenLayersMap": "src/ux/OpenLayersMap.js",
+  "OpenLayers":"src/OpenLayers",
   "RespiraXixon": "app"
 });
 Ext.ClassManager.addNameAlternateMappings({
@@ -719,6 +722,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "Ext.ux.ApplicationMenu": [],
   "Ext.ux.ContextMenu": [],
   "Ext.ux.MenuButton": [],
+  "Ext.ux.OpenLayersMap": [],
   "Ext.ux.TabMenuButton": [],
   "Ext.ux.device.Analytics": [],
   "Ext.ux.device.Twitter": [],
@@ -742,7 +746,16 @@ Ext.ClassManager.addNameAlternateMappings({
   "Ext.viewport.WindowsPhone": [
     "Ext.viewport.WP"
   ],
-  "respiraxixon.view.Main": []
+  "RespiraXixon.controller.Mapa": [],
+  "RespiraXixon.model.Contaminante": [],
+  "RespiraXixon.model.Detalle_Estacion": [],
+  "RespiraXixon.model.Estacion": [],
+  "RespiraXixon.model.Indices": [],
+  "RespiraXixon.store.Contaminantes": [],
+  "RespiraXixon.store.Estaciones": [],
+  "RespiraXixon.store.Indices": [],
+  "RespiraXixon.view.FicherosTabPanel": [],
+  "RespiraXixon.view.InicioTabPanel": []
 });
 Ext.ClassManager.addNameAliasMappings({
   "Ext.AbstractComponent": [],
@@ -1650,6 +1663,9 @@ Ext.ClassManager.addNameAliasMappings({
   "Ext.ux.ApplicationMenu": [],
   "Ext.ux.ContextMenu": [],
   "Ext.ux.MenuButton": [],
+  "Ext.ux.OpenLayersMap": [
+    "widget.openlayersmap"
+  ],
   "Ext.ux.TabMenuButton": [],
   "Ext.ux.device.Analytics": [],
   "Ext.ux.device.Twitter": [],
@@ -1679,7 +1695,16 @@ Ext.ClassManager.addNameAliasMappings({
   "Ext.viewport.Ios": [],
   "Ext.viewport.Viewport": [],
   "Ext.viewport.WindowsPhone": [],
-  "respiraxixon.view.Main": [
-    "widget.main"
-  ]
+  "RespiraXixon.controller.Mapa": [],
+  "RespiraXixon.model.Contaminante": [],
+  "RespiraXixon.model.Detalle_Estacion": [],
+  "RespiraXixon.model.Estacion": [],
+  "RespiraXixon.model.Indices": [],
+  "RespiraXixon.store.Contaminantes": [],
+  "RespiraXixon.store.Estaciones": [],
+  "RespiraXixon.store.Indices": [],
+  "RespiraXixon.view.FicherosTabPanel": [
+    "widget.ficherostabpanel"
+  ],
+  "RespiraXixon.view.InicioTabPanel": []
 });

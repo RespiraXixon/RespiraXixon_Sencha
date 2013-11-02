@@ -160,7 +160,10 @@ Ext.define('Ext.ux.OpenLayersMap', {
 			 * @param {OpenLayers.Map} map The rendered OpenLayers.Map instance
 			 * @param {OpenLayers.Layer.XYZ} layer The rendered OpenLayers.Layer.XYZ instance
 			 */
-			"moveend"
+			"moveend",
+			"featureselect",
+			"featureunselect"
+			
 		);
     },
 	
@@ -370,8 +373,7 @@ Ext.define('Ext.ux.OpenLayersMap', {
 			layer = this.getLayer();
 		
         this.fireEvent('moveend', this, map, layer);
-    },
-	
+    },	
 	// @private
     destroy: function() {
         Ext.destroy(this.getGeo());
