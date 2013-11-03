@@ -16,7 +16,7 @@
 Ext.define('RespiraXixon.view.GraficasTabPanel', {
     extend: 'Ext.tab.Panel',
 	xtype : 'graficastabpanel',
-	requires: ['RespiraXixon.store.Contaminantes'],
+	requires: ['RespiraXixon.store.Contaminantes',"Ext.ux.RXUtils"],
     config: {
         items: [
             {
@@ -59,25 +59,19 @@ Ext.define('RespiraXixon.view.GraficasTabPanel', {
                             '<div>Indice: {indice}</div>',
                             '<div>Calidad: {calidad}</div>',
                             '    '*/
-                        ],
-	     				painted: function(){
-								console.log("Activa");
-								var lista=Ext.getCmp("lista");
-								console.log(Ext.getStore("Detalle_estaciones"));
-								lista.setStore("Detalle_Estaciones");
-								lista.refresh();
-								this.callParent(arguments);
-						}
-                    }
+                        ]                    
+                	}
                 ]
             }
         ]
     },
 	initialize: function()
 	{
-		var rxUtils= Ext.create("Ext.ux.RXUtils");
-		rxUtils.calcula_medias();
-		rxUtils.calcula_indices();
+		console.log("Activa");
+		var lista=Ext.getCmp("lista");
+		console.log(Ext.getStore("Detalle_estaciones"));
+		lista.setStore("Detalle_Estaciones");
+		lista.refresh();
 		this.callParent(arguments);
 	}
 });

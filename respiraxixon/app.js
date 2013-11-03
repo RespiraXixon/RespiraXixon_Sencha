@@ -1,5 +1,4 @@
 
-
 Ext.application({
     name: 'RespiraXixon',
 
@@ -47,8 +46,11 @@ Ext.application({
         Ext.fly('appLoadingIndicator').destroy();
 
         // Initialize the main view
-        Ext.Viewport.add(Ext.create('RespiraXixon.view.InicioTabPanel', {fullscreen: true}));
-        //Ext.Viewport.add(Ext.create('RespiraXixon.view.FicherosTabPanel', {fullscreen: true}));
+		Ext.getStore("Estaciones").load();
+		Ext.getStore("Indices").load();
+		Ext.getStore("Contaminantes").load(function(){
+			Ext.Viewport.add(Ext.create('RespiraXixon.view.InicioTabPanel', {fullscreen: true}));
+		});
     },
 
     onUpdated: function() {

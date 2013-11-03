@@ -15,7 +15,7 @@
 
 Ext.define('RespiraXixon.view.InicioTabPanel', {
     extend: 'Ext.tab.Panel',
-    requires: ['Ext.ux.OpenLayersMap','RespiraXixon.view.FicherosTabPanel','RespiraXixon.view.GraficasTabPanel'],
+    requires: ['Ext.ux.OpenLayersMap','RespiraXixon.view.FicherosTabPanel','RespiraXixon.view.GraficasTabPanel',"Ext.ux.RXUtils"],
 	
     config: {
         tabBar: {

@@ -1,5 +1,6 @@
 Ext.define('RespiraXixon.controller.Mapa', {
     extend: 'Ext.app.Controller',
+    requires: ["Ext.ux.RXUtils"],
     /*
     estilo_origen:null,
     estilo_origen_style_map:null,
@@ -79,10 +80,10 @@ Ext.define('RespiraXixon.controller.Mapa', {
 
     onMapRender: function(mapPanel, options) {
         var me = this;
-        var rxUtils= Ext.create("Ext.ux.RXUtils");
+        var RXUtils= Ext.create("Ext.ux.RXUtils");
         //Creo la capa de vector
     	var vector = new OpenLayers.Layer.Vector("Geolocalizacion", {});
-    	//vector.styleMap = this.estilo_origen_style_map;
+
     	
     	var geolocate = new OpenLayers.Control.Geolocate({
 	        id: 'locate-control',
@@ -105,7 +106,7 @@ Ext.define('RespiraXixon.controller.Mapa', {
 		                {}
 		            );
    					
-		        var estacion=rxUtils.distancia_estacion(map,indiceGlobalLayer,punto);
+		        var estacion=RXUtils.distancia_estacion(map,indiceGlobalLayer,punto);
 		        punto.data=estacion.estacion.data;
 		        punto.attributes={"distancia":estacion.distancia};
 		        		        
@@ -164,20 +165,21 @@ Ext.define('RespiraXixon.controller.Mapa', {
 	            graphicYOffset: -26
 	        })
 	    });
-		estacionesLayer.addFeatures(rxUtils.parseaGeoJson(Ext.getStore('Estaciones')));
+		estacionesLayer.addFeatures(RXUtils.parseaGeoJson(Ext.getStore('Estaciones')));
 	    
 	    var indiceGlobalLayer = new OpenLayers.Layer.Vector("Indice RX Global", {
 	        styleMap: new OpenLayers.StyleMap({
-	            externalGraphic: "src/Openlayers/img/marker.png",
+	            externalGraphic: "src/OpenLayers/img/marker.png",
 	            graphicOpacity: 1.0,
 	            graphicWidth: 16,
 	            graphicHeight: 26,
 	            graphicYOffset: -26
 	        })
 	    });
-	    rxUtils.calcula_medias();
-		rxUtils.calcula_indices();
-		indiceGlobalLayer.addFeatures(rxUtils.parseaGeoJson(Ext.getStore('Detalle_Estaciones')));
+	    RXUtils.calcula_medias();
+		RXUtils.calcula_indices();
+		
+		indiceGlobalLayer.addFeatures(RXUtils.parseaGeoJson(Ext.getStore('Detalle_Estaciones')));
 		//Inicializamos las capas que queremos poner en el mapa
 		
         var layers = [
@@ -220,7 +222,7 @@ Ext.define('RespiraXixon.controller.Mapa', {
                 "featureselected": function(e) {
                 		feature=e.feature;
             			selectedFeature = feature;
-            			var html="<div style='font-size:.8em'>Coordenadas: " + feature.geometry+ "<br>";
+            			var html="<div style='font-size:.8em'>Coordenadas: " + feature.geometry.toShortString()+ "<br>";
             			for(var key in feature.data) {
 								html=html + key + ": "+feature.data[key]+"<br>";
 						};

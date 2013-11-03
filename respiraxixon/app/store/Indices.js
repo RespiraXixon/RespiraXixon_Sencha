@@ -21,7 +21,6 @@ Ext.define('RespiraXixon.store.Indices', {
     ],
 
     config: {
-        autoLoad: true,
         model: 'RespiraXixon.model.Indices',
         storeId: 'Indices',
         proxy: {

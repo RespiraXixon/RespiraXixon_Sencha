@@ -19,7 +19,7 @@ Ext.Loader.addClassPathMappings({
   "Ext.device.sqlite.SQLTransaction": "touch/src/device/sqlite/Sencha.js",
   "Ext.draw.engine.SvgContext.Gradient": "touch/src/draw/engine/SvgContext.js",
   "Ext.ux.OpenLayersMap": "src/ux/OpenLayersMap.js",
-  "OpenLayers":"src/OpenLayers",
+  "Ext.ux.RXUtils": "src/ux/RXUtils.js",
   "RespiraXixon": "app"
 });
 Ext.ClassManager.addNameAlternateMappings({
@@ -619,6 +619,17 @@ Ext.ClassManager.addNameAlternateMappings({
   "Ext.layout.wrapper.BoxDock": [],
   "Ext.layout.wrapper.Dock": [],
   "Ext.layout.wrapper.Inner": [],
+  "Ext.log.Base": [],
+  "Ext.log.Logger": [],
+  "Ext.log.filter.Filter": [],
+  "Ext.log.filter.Priority": [],
+  "Ext.log.formatter.Default": [],
+  "Ext.log.formatter.Formatter": [],
+  "Ext.log.formatter.Identity": [],
+  "Ext.log.writer.Console": [],
+  "Ext.log.writer.DocumentTitle": [],
+  "Ext.log.writer.Remote": [],
+  "Ext.log.writer.Writer": [],
   "Ext.mixin.Bindable": [],
   "Ext.mixin.Filterable": [],
   "Ext.mixin.Mixin": [],
@@ -723,6 +734,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "Ext.ux.ContextMenu": [],
   "Ext.ux.MenuButton": [],
   "Ext.ux.OpenLayersMap": [],
+  "Ext.ux.RXUtils": [],
   "Ext.ux.TabMenuButton": [],
   "Ext.ux.device.Analytics": [],
   "Ext.ux.device.Twitter": [],
@@ -755,6 +767,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "RespiraXixon.store.Estaciones": [],
   "RespiraXixon.store.Indices": [],
   "RespiraXixon.view.FicherosTabPanel": [],
+  "RespiraXixon.view.GraficasTabPanel": [],
   "RespiraXixon.view.InicioTabPanel": []
 });
 Ext.ClassManager.addNameAliasMappings({
@@ -1552,6 +1565,17 @@ Ext.ClassManager.addNameAliasMappings({
   "Ext.layout.wrapper.BoxDock": [],
   "Ext.layout.wrapper.Dock": [],
   "Ext.layout.wrapper.Inner": [],
+  "Ext.log.Base": [],
+  "Ext.log.Logger": [],
+  "Ext.log.filter.Filter": [],
+  "Ext.log.filter.Priority": [],
+  "Ext.log.formatter.Default": [],
+  "Ext.log.formatter.Formatter": [],
+  "Ext.log.formatter.Identity": [],
+  "Ext.log.writer.Console": [],
+  "Ext.log.writer.DocumentTitle": [],
+  "Ext.log.writer.Remote": [],
+  "Ext.log.writer.Writer": [],
   "Ext.mixin.Bindable": [],
   "Ext.mixin.Filterable": [],
   "Ext.mixin.Mixin": [],
@@ -1666,6 +1690,9 @@ Ext.ClassManager.addNameAliasMappings({
   "Ext.ux.OpenLayersMap": [
     "widget.openlayersmap"
   ],
+  "Ext.ux.RXUtils": [
+    "plugin.rxutils"
+  ],
   "Ext.ux.TabMenuButton": [],
   "Ext.ux.device.Analytics": [],
   "Ext.ux.device.Twitter": [],
@@ -1705,6 +1732,9 @@ Ext.ClassManager.addNameAliasMappings({
   "RespiraXixon.store.Indices": [],
   "RespiraXixon.view.FicherosTabPanel": [
     "widget.ficherostabpanel"
+  ],
+  "RespiraXixon.view.GraficasTabPanel": [
+    "widget.graficastabpanel"
   ],
   "RespiraXixon.view.InicioTabPanel": []
 });
