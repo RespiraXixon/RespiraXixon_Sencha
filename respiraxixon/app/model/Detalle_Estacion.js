@@ -113,13 +113,16 @@ Ext.define('RespiraXixon.model.Detalle_Estacion', {
                 name: 'o3_med_24'
             },
             {
-                name: 'ind_global_rx_ayt_gijon'
+                name: 'ind_global_rx_ayt_gijon',
+                 type: 'int'
             },
             {
-                name: 'ind_global_rx_legal'
+                name: 'ind_global_rx_legal',
+                 type: 'int'
             },
             {
-                name: 'ind_global_rx_oms'
+                name: 'ind_global_rx_oms',
+                 type: 'int'
             }
         ]
     }

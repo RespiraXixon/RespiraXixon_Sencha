@@ -3,7 +3,7 @@ Ext.define('Ext.ux.RXUtils', {
     ],
 
     alias: 'plugin.rxutils',
-
+	singleton	: true,
     config: {
     },
 
@@ -177,7 +177,7 @@ Ext.define('Ext.ux.RXUtils', {
 				"type":"Feature",
 				"geometry": geometry,
 				"properties":datos
-			}
+			};
 			features.push(feature);
 		});
 		var featuresCollection={
@@ -186,5 +186,107 @@ Ext.define('Ext.ux.RXUtils', {
 		};
 		var reader= new OpenLayers.Format.GeoJSON();
 		return reader.read(featuresCollection);
-    }	
+    },
+	parseaOSMtoGeoJson:function(store){
+    	var features =[];
+    	var projorig = new OpenLayers.Projection("EPSG:4326");
+    	var projdest = new OpenLayers.Projection("EPSG:3857");
+		store.each(function(record){
+			var datos = record.getData();
+			var feature={
+				"type":"Feature",
+				"geometry": datos.geojson,
+				"properties":datos
+			};
+			features.push(feature);
+		});
+		var featuresCollection={
+			"type":"FeatureCollection",
+			"features":features
+		};
+		var reader= new OpenLayers.Format.GeoJSON();
+		var aux=reader.read(featuresCollection);
+		for(var i=0; i < aux.length; i++){
+			aux[i].geometry=aux[i].geometry.transform(projorig,projdest);
+		};
+		return aux;
+    },
+    indicesBarrio: function(barrios,estaciones){
+		  for(var i=0; i < barrios.length; i++){
+    	  	var distancia=null;
+    	  	var estacion=null;
+		  	for(var j=0; j < estaciones.length; j++){
+		  		var centro=barrios[i].geometry.getCentroid();
+		  		var distancia_aux =centro.distanceTo(estaciones[j].geometry);
+		  		if (!distancia){
+	                distancia=distancia_aux;
+	                estacion= estaciones[j];
+            	}else{
+            		if(distancia_aux<distancia){
+            			distancia=distancia_aux;
+            			estacion= estaciones[j];
+            		}
+            	};
+		  	};
+		  	barrios[i].attributes["ind_global_rx_ayt_gijon"]=estacion.attributes["ind_global_rx_ayt_gijon"];
+		  	barrios[i].attributes["ind_global_rx_legal"]=estacion.attributes["ind_global_rx_legal"];
+		  	barrios[i].attributes["ind_global_rx_oms"]=estacion.attributes["ind_global_rx_oms"];
+		};
+    },
+    estilo_indices:function(indicador){
+    	var estilo_barrios = new OpenLayers.Style({
+	        strokeColor: 'black',
+	        strokeOpacity: 0.6
+        });
+
+		var indice0 = new OpenLayers.Rule({
+		  filter: new OpenLayers.Filter.Comparison({
+		      type: OpenLayers.Filter.Comparison.EQUAL_TO,
+		      property: indicador,
+		      value: 0
+		  }),
+		  symbolizer: {
+	         			fillColor : "blue",	
+                       	fillOpacity : 0.4
+	        		  }
+		});
+
+		var indice1 = new OpenLayers.Rule({
+		  filter: new OpenLayers.Filter.Comparison({
+		      type: OpenLayers.Filter.Comparison.EQUAL_TO,
+		      property: indicador,
+		      value: 1
+		  }),
+		  symbolizer: {
+	         			fillColor : "lime",	
+                       	fillOpacity : 0.4
+	        		  }
+		});
+		var indice2 = new OpenLayers.Rule({
+		  filter: new OpenLayers.Filter.Comparison({
+		      type: OpenLayers.Filter.Comparison.EQUAL_TO,
+		      property: indicador,
+		      value: 2
+		  }),
+		  symbolizer: {
+	         			fillColor : "yellow",	
+                       	fillOpacity : 0.4
+	        		  }
+		});
+		
+		var indice3 = new OpenLayers.Rule({
+		  filter: new OpenLayers.Filter.Comparison({
+		      type: OpenLayers.Filter.Comparison.EQUAL_TO,
+		      property: indicador,
+		      value: 3
+		  }),
+		  symbolizer: {
+	         			fillColor : "red",	
+                       	fillOpacity : 0.4
+	        		  }
+		});
+		
+		estilo_barrios.addRules([indice0,indice1,indice2,indice3]);
+		return(estilo_barrios);
+    }
 });

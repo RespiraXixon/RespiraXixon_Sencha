@@ -9,12 +9,14 @@ Ext.application({
         'Estacion',
         'Contaminante',
         'Indices',
-        'Detalle_Estacion'
+        'Detalle_Estacion',
+        'OSMModel'
     ],
     stores: [
         'Estaciones',
         'Contaminantes',
-        'Indices'
+        'Indices',
+        'OSMStore'
     ],
     views: [
         'InicioTabPanel'
@@ -46,11 +48,10 @@ Ext.application({
         Ext.fly('appLoadingIndicator').destroy();
 
         // Initialize the main view
-		Ext.getStore("Estaciones").load();
+        Ext.getStore("Estaciones").load();
 		Ext.getStore("Indices").load();
-		Ext.getStore("Contaminantes").load(function(){
-			Ext.Viewport.add(Ext.create('RespiraXixon.view.InicioTabPanel', {fullscreen: true}));
-		});
+		
+		Ext.Viewport.add(Ext.create('RespiraXixon.view.InicioTabPanel', {fullscreen: true}));
     },
 
     onUpdated: function() {

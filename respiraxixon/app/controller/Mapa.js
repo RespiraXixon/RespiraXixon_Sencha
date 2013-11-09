@@ -1,11 +1,10 @@
 Ext.define('RespiraXixon.controller.Mapa', {
     extend: 'Ext.app.Controller',
-    requires: ["Ext.ux.RXUtils"],
-    /*
-    estilo_origen:null,
-    estilo_origen_style_map:null,
-    */
+    requires: ["Ext.ux.RXUtils","RespiraXixon.store.OSMStore"],
+    layers:[],
+    indices_style_map:null,
     config: {
+    	stores: ['Estaciones','Contaminantes','Indices','OSMStore'],
         refs: {
             openLayersMap: '#openlayersmap'
         },
@@ -18,69 +17,20 @@ Ext.define('RespiraXixon.controller.Mapa', {
 
     init: function() {
     	var me = this;
-        
-/*TODO:Intentar hacer el estilo del semaforo por reglas */  
-/*   	
-        this.estilo_origen = new OpenLayers.Style();
-
-		var semaforo_verde = new OpenLayers.Rule({
-		  filter: new OpenLayers.Filter.Comparison({
-		      type: OpenLayers.Filter.Comparison.LIKE,
-		      property: "ind_global_rx_ayt_gijon",
-		      value: "0"
-		  }),
-		  symbolizer: {
-		                	externalGraphic: "resources/icons/semaforo/semaforo_verde.jpg",
-	            			graphicOpacity: 1.0,
-	            			graphicWidth: 16,
-	            			graphicHeight: 26,
-	            			graphicYOffset: -26		                
-	            	  }
-		});
-
-		var semaforo_ambar = new OpenLayers.Rule({
-		  filter: new OpenLayers.Filter.Comparison({
-		      type: OpenLayers.Filter.Comparison.LIKE,
-		      property: "ind_global_rx_ayt_gijon",
-		      value: "1"
-		  }),
-		  symbolizer: {
-		                	externalGraphic: "resources/icons/semaforo/semaforo_ambar.jpg",
-	            			graphicOpacity: 1.0,
-	            			graphicWidth: 16,
-	            			graphicHeight: 26,
-	            			graphicYOffset: -26		                
-	            	  }
-		});
-		var semaforo_rojo = new OpenLayers.Rule({
-		  filter: new OpenLayers.Filter.Comparison({
-		      type: OpenLayers.Filter.Comparison.LIKE,
-		      property: "ind_global_rx_ayt_gijon",
-		      value: "1"
-		  }),
-		  symbolizer: {
-		                	externalGraphic: "resources/icons/semaforo/semaforo_rojo.jpg",
-	            			graphicOpacity: 1.0,
-	            			graphicWidth: 16,
-	            			graphicHeight: 26,
-	            			graphicYOffset: -26		                
-	            	  }
-		});
-
-		this.estilo_origen.addRules([semaforo_verde, semaforo_ambar, semaforo_rojo]);
-
-		this.estilo_origen_style_map = new OpenLayers.StyleMap(this.estilo_origen);
-*/	
+    	/*
 		this.control({
             'openlayersmap': {
                 'beforerender': this.onMapRender
             }
-        }, this);
+        }, this);*/
     },
 
     onMapRender: function(mapPanel, options) {
+    	console.log("render");
         var me = this;
-        var RXUtils= Ext.create("Ext.ux.RXUtils");
+        
+        map = mapPanel.getMap();
+        
         //Creo la capa de vector
     	var vector = new OpenLayers.Layer.Vector("Geolocalizacion", {});
 
@@ -105,12 +55,9 @@ Ext.define('RespiraXixon.controller.Mapa', {
 		                e.point,
 		                {}
 		            );
-   					
-		        var estacion=RXUtils.distancia_estacion(map,indiceGlobalLayer,punto);
+		        var estacion=Ext.ux.RXUtils.distancia_estacion(map,this.layers[0],punto);
 		        punto.data=estacion.estacion.data;
 		        punto.attributes={"distancia":estacion.distancia};
-		        		        
-		       
 		        
 		        if (punto.data.ind_global_rx_ayt_gijon==0){
 		        	punto.style={
@@ -152,10 +99,8 @@ Ext.define('RespiraXixon.controller.Mapa', {
 		            ),
 		            punto
 		        ]);
-
-		        map.zoomToExtent(vector.getDataExtent());
     	});
-		
+/*		
 	    var estacionesLayer = new OpenLayers.Layer.Vector("Estaciones", {
 	        styleMap: new OpenLayers.StyleMap({
 	            externalGraphic: "src/OpenLayers/img/marker-gold.png",
@@ -166,57 +111,13 @@ Ext.define('RespiraXixon.controller.Mapa', {
 	        })
 	    });
 		estacionesLayer.addFeatures(RXUtils.parseaGeoJson(Ext.getStore('Estaciones')));
+	    */
 	    
-	    var indiceGlobalLayer = new OpenLayers.Layer.Vector("Indice RX Global", {
-	        styleMap: new OpenLayers.StyleMap({
-	            externalGraphic: "src/OpenLayers/img/marker.png",
-	            graphicOpacity: 1.0,
-	            graphicWidth: 16,
-	            graphicHeight: 26,
-	            graphicYOffset: -26
-	        })
-	    });
-	    RXUtils.calcula_medias();
-		RXUtils.calcula_indices();
-		
-		indiceGlobalLayer.addFeatures(RXUtils.parseaGeoJson(Ext.getStore('Detalle_Estaciones')));
-		//Inicializamos las capas que queremos poner en el mapa
-		
-        var layers = [
-	            estacionesLayer,
-	            indiceGlobalLayer,
-	            vector
-        ];
-        //Creamos el layer de control
+		this.layers.push(vector);
+    
+		//Creamos el layer de control
         
-        var control = new OpenLayers.Control.SelectFeature([indiceGlobalLayer,vector],{hover:true, geometryTypes: ["OpenLayers.Geometry.Point"]});
-		               		
-       indiceGlobalLayer.events.on({
-                "featureselected": function(e) {
-                		feature=e.feature;
-            			selectedFeature = feature;
-            			var html="<div style='font-size:.8em'>Coordenadas: " + feature.geometry.toShortString()+ "<br>";
-            			for(var key in feature.data) {
-								html=html + key + ": "+feature.data[key]+"<br>";
-						};
-            			html=html+"</div>";
-            			popup = new OpenLayers.Popup.FramedCloud("chicken", 
-                                     feature.geometry.getBounds().getCenterLonLat(),
-                                     null,
-                                     html.toString(),
-                                     null, true);
-            			feature.popup = popup;
-            			map.addPopup(popup);
-                },
-                "featureunselected": function(e) {
-                	   	feature=e.feature;
-            			map.removePopup(feature.popup);
-            			feature.popup.destroy();
-            			feature.popup = null;
-                }
-            });
-        
-
+        var control = new OpenLayers.Control.SelectFeature([this.layers[0],vector],{geometryTypes: ["OpenLayers.Geometry.Point"]});        
         
         vector.events.on({
                 "featureselected": function(e) {
@@ -255,42 +156,97 @@ Ext.define('RespiraXixon.controller.Mapa', {
             			geolocate
         ];
 
-        var context = {
-            getColor: function(feature) {
-                if (feature.attributes.elevation < 2000) {
-                    return 'green';
-                }
-                if (feature.attributes.elevation < 2300) {
-                    return 'orange';
-                }
-                return 'red';
-            }
-        };
-        
-        var template = {
-            cursor: "pointer",
-            fillOpacity: 0.5,
-            fillColor: "${getColor}",
-            pointRadius: 5,
-            strokeWidth: 1,
-            strokeOpacity: 1,
-            strokeColor: "${getColor}",
-            graphicName: "triangle"
-        };
-
-		var map = mapPanel.getMap();
-
-
-        map.addLayers(layers);
+        map.addLayers(this.layers);
         map.addControls(controles);
      	geolocate.activate();        
        	control.activate();
     },
 
-    onLaunch: function() {
+    launch: function() {
         var me = this;
-
+        
+        var contaminantes = Ext.getStore('Contaminantes');
+            contaminantes.on({
+                load: 'onContaminantesLoad',
+                scope: this
+            });
+        contaminantes.load();
+        
+        var OSMStore = Ext.getStore('OSMStore');
+            OSMStore.on({
+                load: 'onOSMStoreLoad',
+                scope: this
+            });
+        OSMStore.load();
         // for dev purpose
         ctrl = this;
-    }
+    },
+    
+    onContaminantesLoad: function() {
+    	console.log("indices");
+    	var indiceGlobalLayer = new OpenLayers.Layer.Vector("Indice RX Global", {
+	        styleMap: new OpenLayers.StyleMap({
+	            externalGraphic: "src/OpenLayers/img/marker.png",
+	            graphicOpacity: 1.0,
+	            graphicWidth: 16,
+	            graphicHeight: 26,
+	            graphicYOffset: -26
+	        })
+	    });
+	    Ext.ux.RXUtils.calcula_medias();
+		Ext.ux.RXUtils.calcula_indices();
+		var estaciones = Ext.ux.RXUtils.parseaGeoJson(Ext.getStore('Detalle_Estaciones'));
+		indiceGlobalLayer.addFeatures(estaciones);
+		
+		indiceGlobalLayer.events.on({
+                "featureselected": function(e) {
+                		feature=e.feature;
+            			selectedFeature = feature;
+            			var html="<div style='font-size:.8em'>Coordenadas: " + feature.geometry.toShortString()+ "<br>";
+            			for(var key in feature.data) {
+								html=html + key + ": "+feature.data[key]+"<br>";
+						};
+            			html=html+"</div>";
+            			popup = new OpenLayers.Popup.FramedCloud("chicken", 
+                                     feature.geometry.getBounds().getCenterLonLat(),
+                                     null,
+                                     html.toString(),
+                                     null, true);
+            			feature.popup = popup;
+            			map.addPopup(popup);
+                },
+                "featureunselected": function(e) {
+                	   	feature=e.feature;
+            			map.removePopup(feature.popup);
+            			feature.popup.destroy();
+            			feature.popup = null;
+                }
+            });
+		this.layers.push(indiceGlobalLayer);
+    },
+    
+    onOSMStoreLoad: function() {
+    	console.log("OSM load");
+        var indices_style_map = new OpenLayers.StyleMap({"default": Ext.ux.RXUtils.estilo_indices("ind_global_rx_ayt_gijon")});		
+		var barriosLayer = new OpenLayers.Layer.Vector("Barrios", {
+	        styleMap: indices_style_map
+	    });
+	    var barrios=Ext.ux.RXUtils.parseaOSMtoGeoJson(Ext.getStore('OSMStore'));
+	    var estaciones=Ext.ux.RXUtils.parseaGeoJson(Ext.getStore('Detalle_Estaciones'));
+	    Ext.ux.RXUtils.indicesBarrio(barrios,estaciones);
+		barriosLayer.addFeatures(barrios);
+		//this.layers.push(barriosLayer);
+		
+		var openlayermap=Ext.getCmp("openlayersmap");
+		//Esto lo hago para forzar el renderizado
+		openlayermap.setMapCenter({longitude:-5.6626443, latitude:43.5450394});
+		if (map){
+			map.addLayer(barriosLayer);
+			map.zoomToExtent(barriosLayer.getDataExtent());
+		}else{
+			this.layers.push(barriosLayer);
+		}
+		
+		
+   }
 });

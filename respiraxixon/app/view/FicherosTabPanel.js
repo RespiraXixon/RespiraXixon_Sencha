@@ -16,12 +16,11 @@
 Ext.define('RespiraXixon.view.FicherosTabPanel', {
     extend: 'Ext.tab.Panel',
 	xtype : 'ficherostabpanel',
-	requires: ['RespiraXixon.store.Estaciones','RespiraXixon.store.Indices','RespiraXixon.store.Contaminantes'],
+	requires: ['RespiraXixon.store.Estaciones','RespiraXixon.store.Indices','RespiraXixon.store.Contaminantes','RespiraXixon.store.OSMStore'],
     config: {
         items: [
             {
                 xtype: 'container',
-                autoLoad: true,
                 title: 'Estaciones',
                 ui: '',
                 layout: {
@@ -31,7 +30,6 @@ Ext.define('RespiraXixon.view.FicherosTabPanel', {
                 items: [
                     {
                         xtype: 'list',
-                        autoLoad: true,
                         itemTpl: [
                             '<div>Estacion: {id} - {titulo}</div>',
                             '<div>Direccion: {direccion}, {poblacion}, {provincia}</div>',
@@ -43,7 +41,6 @@ Ext.define('RespiraXixon.view.FicherosTabPanel', {
             },
             {
                 xtype: 'container',
-                autoLoad: true,
                 title: 'Contaminantes',
                 ui: '',
                 layout: {
@@ -52,7 +49,6 @@ Ext.define('RespiraXixon.view.FicherosTabPanel', {
                 items: [
                     {
                         xtype: 'list',
-                        autoLoad: true,
                         ui: 'round',
                         itemTpl: [
                             '<div>Estacion: {estacion} - {titulo}</div>',
@@ -65,8 +61,29 @@ Ext.define('RespiraXixon.view.FicherosTabPanel', {
             },
             {
                 xtype: 'container',
-                autoLoad: true,
                 title: 'Indices',
+                ui: '',
+                layout: {
+                    type: 'card'
+                },
+                items: [
+                    {
+                        xtype: 'list',
+                        ui: 'round',
+                        itemTpl: [
+                            '<div>Organizacion: {organizacion}</div>',
+                            '<div>Contaminante: {contaminante}</div>',
+                            '<div>Indice: {indice}</div>',
+                            '<div>Calidad: {calidad}</div>',
+                            '    '
+                        ],
+                        store: 'Indices'
+                    }
+                ]
+            },
+            {
+                xtype: 'container',
+                title: 'Barrios',
                 ui: '',
                 layout: {
                     type: 'card'
@@ -77,13 +94,12 @@ Ext.define('RespiraXixon.view.FicherosTabPanel', {
                         autoLoad: true,
                         ui: 'round',
                         itemTpl: [
-                            '<div>Organizacion: {organizacion}</div>',
-                            '<div>Contaminante: {contaminante}</div>',
-                            '<div>Indice: {indice}</div>',
-                            '<div>Calidad: {calidad}</div>',
+                            '<div>Dirección: {display_name}</div>',
+                            '<div>Detalle: {address.city_district}</div>',
+                            '<div>Geojson type: {geojson.type}</div>',
                             '    '
                         ],
-                        store: 'Indices'
+                        store: 'OSMStore'
                     }
                 ]
             }

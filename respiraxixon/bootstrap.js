@@ -6,7 +6,7 @@
  */
 Ext.Loader.addClassPathMappings({
   "Ext": "touch/src",
-  "Ext.data.reader.Json": "src/ux/data/reader/EstacionesJson.js",
+  "Ext.data.reader.GeoJson": "src/ux/data/reader/GeoJson.js",
   "Ext.device.Purchases.Product": "touch/src/device/purchases/Sencha.js",
   "Ext.device.filesystem.DirectoryEntry": "touch/src/device/filesystem/HTML5.js",
   "Ext.device.filesystem.Entry": "touch/src/device/filesystem/HTML5.js",
@@ -248,6 +248,9 @@ Ext.ClassManager.addNameAlternateMappings({
   ],
   "Ext.data.reader.Array": [
     "Ext.data.ArrayReader"
+  ],
+  "Ext.data.reader.GeoJson": [
+    "Ext.data.GeoJsonReader"
   ],
   "Ext.data.reader.Json": [
     "Ext.data.JsonReader"
@@ -763,12 +766,16 @@ Ext.ClassManager.addNameAlternateMappings({
   "RespiraXixon.model.Detalle_Estacion": [],
   "RespiraXixon.model.Estacion": [],
   "RespiraXixon.model.Indices": [],
+  "RespiraXixon.model.OSMModel": [],
   "RespiraXixon.store.Contaminantes": [],
   "RespiraXixon.store.Estaciones": [],
   "RespiraXixon.store.Indices": [],
+  "RespiraXixon.store.OSMStore": [],
   "RespiraXixon.view.FicherosTabPanel": [],
   "RespiraXixon.view.GraficasTabPanel": [],
-  "RespiraXixon.view.InicioTabPanel": []
+  "RespiraXixon.view.IndicadoresChart": [],
+  "RespiraXixon.view.InicioTabPanel": [],
+  "RespiraXixon.view.ParquesTabPanel": []
 });
 Ext.ClassManager.addNameAliasMappings({
   "Ext.AbstractComponent": [],
@@ -1114,6 +1121,9 @@ Ext.ClassManager.addNameAliasMappings({
   "Ext.data.proxy.WebStorage": [],
   "Ext.data.reader.Array": [
     "reader.array"
+  ],
+  "Ext.data.reader.GeoJson": [
+    "reader.geojson"
   ],
   "Ext.data.reader.Json": [
     "reader.json"
@@ -1727,14 +1737,22 @@ Ext.ClassManager.addNameAliasMappings({
   "RespiraXixon.model.Detalle_Estacion": [],
   "RespiraXixon.model.Estacion": [],
   "RespiraXixon.model.Indices": [],
+  "RespiraXixon.model.OSMModel": [],
   "RespiraXixon.store.Contaminantes": [],
   "RespiraXixon.store.Estaciones": [],
   "RespiraXixon.store.Indices": [],
+  "RespiraXixon.store.OSMStore": [],
   "RespiraXixon.view.FicherosTabPanel": [
     "widget.ficherostabpanel"
   ],
   "RespiraXixon.view.GraficasTabPanel": [
     "widget.graficastabpanel"
   ],
-  "RespiraXixon.view.InicioTabPanel": []
+  "RespiraXixon.view.IndicadoresChart": [
+    "widget.indicadoreschart"
+  ],
+  "RespiraXixon.view.InicioTabPanel": [],
+  "RespiraXixon.view.ParquesTabPanel": [
+    "widget.parquestabpanel"
+  ]
 });
