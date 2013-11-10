@@ -47,6 +47,11 @@ Ext.application({
         // Destroy the #appLoadingIndicator element
         Ext.fly('appLoadingIndicator').destroy();
 
+        //Incializamos el path con las imagenes que usa OpenLayers
+        
+        OpenLayers.ImgPath = "src/OpenLayers/img/";
+        OpenLayers.Lang.setCode('es');
+        
         // Initialize the main view
         Ext.getStore("Estaciones").load();
 		Ext.getStore("Indices").load();
@@ -56,8 +61,8 @@ Ext.application({
 
     onUpdated: function() {
         Ext.Msg.confirm(
-            "Application Update",
-            "This application has just successfully been updated to the latest version. Reload now?",
+            "Actualización de la aplicación",
+            "Esta aplicación ha sido actualizada. Desea recargar ahora?",
             function(buttonId) {
                 if (buttonId === 'yes') {
                     window.location.reload();

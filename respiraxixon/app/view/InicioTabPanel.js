@@ -39,7 +39,8 @@ Ext.define('RespiraXixon.view.InicioTabPanel', {
                             autoMapCenter: false,
                             mapOptions: {
                                 zoom: 13,
-                                center: {longitude:-5.6626443, latitude:43.5450394}
+                                center: {longitude:-5.6626443, latitude:43.5450394},
+                                theme: 'src/Openlayers/theme/default/style.mobile.css'
                         	}
                         }
              		]

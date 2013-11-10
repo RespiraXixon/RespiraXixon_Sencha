@@ -61,3 +61,86 @@ img.olTileImage {
     -webkit-transform: translate3d(0, 0, 0);
 }
 }
+/**
+ * Layer switcher
+ */
+.olControlLayerSwitcher {
+    position: absolute;
+    top: 25px;
+    right: 0;
+    width: 20em;
+    font-family: sans-serif;
+    font-weight: bold;
+    margin-top: 3px;
+    margin-left: 3px;
+    margin-bottom: 3px;
+    font-size: smaller;
+    color: white;
+    background-color: transparent;
+}
+
+.olControlLayerSwitcher .layersDiv {
+    padding-top: 5px;
+    padding-left: 10px;
+    padding-bottom: 5px;
+    padding-right: 10px;
+    background: rgba(0, 60, 136, 0.5);
+    filter: alpha(opacity=80);
+}
+
+.olControlLayerSwitcher .layersDiv .baseLbl,
+.olControlLayerSwitcher .layersDiv .dataLbl {
+    margin-top: 5px;
+    margin-left: 3px;
+    margin-bottom: 5px;
+}
+
+.olControlLayerSwitcher .layersDiv  .olButton,
+.olControlLayerSwitcher .layersDiv  .olButton{
+    margin: 5px;
+}
+
+
+.olControlLayerSwitcher .layersDiv .baseLayersDiv,
+.olControlLayerSwitcher .layersDiv .dataLayersDiv {
+    padding-left: 10px;
+}
+
+.olControlLayerSwitcher .maximizeDiv,
+.olControlLayerSwitcher .minimizeDiv {
+    width: 30px;
+	height: 32px;
+	top: 5px;
+	right: 0;
+	cursor: pointer;
+	background: rgba(255,255,255,0.4);
+	border-radius: 4px;
+	padding: 4px;
+}
+
+.olBingAttribution {
+    color: #DDD;
+}
+.olBingAttribution.road {
+    color: #333;
+}
+
+.olGoogleAttribution.hybrid, .olGoogleAttribution.satellite {
+    color: #EEE;
+}
+.olGoogleAttribution {
+    color: #333;
+}
+span.olGoogleAttribution a {
+    color: #77C;
+}
+span.olGoogleAttribution.hybrid a, span.olGoogleAttribution.satellite a {
+    color: #EEE;
+}
+
+.olControlLayerSwitcher .olAlphaImg{
+	width: 32px;
+	height: 32px;	
+	opacity:0.8;
+	filter: alpha(opacity=80); 
+}

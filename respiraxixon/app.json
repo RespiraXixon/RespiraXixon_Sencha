@@ -44,6 +44,10 @@
             "update":"delta"
         },        
         {
+            "path": "src/OpenLayers/User/Control/LayerSwitcher.js",
+            "update":"delta"
+        },
+        {
             "path": "touch/sencha-touch.js",
             "x-bootstrap": true
         },

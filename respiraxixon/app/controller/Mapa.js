@@ -38,21 +38,6 @@ Ext.define('RespiraXixon.controller.Mapa', {
         var me = this;
 		//Creamos el layer de control
         
-        console.log(this.layers);
-		console.log(this.controles);
-        //map.addLayers([this.layers["geolocalizacion"],this.layers["indiceGlobalLayer"],this.layers["barriosLayer"]]);
-        //map.addControls([this.controles["vectorControl"],this.controles["indiceGlobalControl"],this.controles["geolocalizacionControl"]]);
-		/*
-        if(this.layers["geolocalizacion"]){
-        	map.addLayers(this.layers["geolocalizacion"]);
-        }
-        if(this.layers["indiceGlobalLayer"]){
-        	map.addLayers(this.layers["indiceGlobalLayer"]);
-        }
-        if(this.layers["barriosLayer"]){
-        	map.addLayers(this.layers["barriosLayer"]);
-        }
-		*/
 		var controles = [
 	        				new OpenLayers.Control.LayerSwitcher(),
 	            			new OpenLayers.Control.Attribution(),
@@ -192,13 +177,6 @@ Ext.define('RespiraXixon.controller.Mapa', {
                 scope: this
             });
         contaminantes.load();
-        
-        var OSMStore = Ext.getStore('OSMStore');
-            OSMStore.on({
-                load: 'onOSMStoreLoad',
-                scope: this
-            });
-        OSMStore.load();
     },
     
     onContaminantesLoad: function() {
@@ -245,6 +223,12 @@ Ext.define('RespiraXixon.controller.Mapa', {
         var map=openlayermap.getMap();
 		this.layers["indiceGlobalLayer"]=indiceGlobalLayer;
 		map.addLayer(indiceGlobalLayer);
+		var OSMStore = Ext.getStore('OSMStore');
+            OSMStore.on({
+                load: 'onOSMStoreLoad',
+                scope: this
+            });
+        OSMStore.load();
 		/*
 			var control = new OpenLayers.Control.SelectFeature([indiceGlobalLayer],{geometryTypes: ["OpenLayers.Geometry.Point"]});
 			this.controles["indiceGlobalControl"]=control;
