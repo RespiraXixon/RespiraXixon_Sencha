@@ -485,7 +485,7 @@
 
             if (asset.type == 'js') {
                 try {
-                    eval(asset.content);
+                    (42,eval)(asset.content);////Se modifica para que funcione correctamente con librerias externas eval(asset.content);
                 }
                 catch (e) {
                     log("Error evaluating " + asset.uri + " with message: " + e);

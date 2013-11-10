@@ -39,6 +39,10 @@
      *      }
      */
     "js": [
+		{
+            "path": "src/OpenLayers/OpenLayers.mobile.js",
+            "update":"delta"
+        },        
         {
             "path": "touch/sencha-touch.js",
             "x-bootstrap": true
@@ -52,48 +56,7 @@
             "bundle": true,  /* Indicates that all class dependencies are concatenated into this file when build */
             "update": "delta"
         }
-        /*
-        ,
-        {
-            "path": "src/OpenLayers/OpenLayers.mobile.js",
-            "bundle": true,  
-            "update": "delta"
-        },
-        {
-            "path": "src/OpenLayers/OpenLayers/Control/LayerSwitcher.js",
-            "bundle": true,  
-            "update": "delta"
-        },
-                {
-            "path": "src/OpenLayers/OpenLayers/Popup.js",
-            "bundle": true,  
-            "update": "delta"
-        },
-        {
-            "path": "src/OpenLayers/OpenLayers/Rule.js",
-            "bundle": true,  
-            "update": "delta"
-        },
-                {
-            "path": "src/OpenLayers/OpenLayers/Popup/Anchored.js",
-            "bundle": true,  
-            "update": "delta"
-        },
-        {
-            "path": "src/OpenLayers/OpenLayers/Popup/Framed.js",
-            "bundle": true,  
-            "update": "delta"
-        },
-        {
-            "path": "src/OpenLayers/OpenLayers/Popup/FramedCloud.js",
-            "bundle": true,  
-            "update": "delta"
-        },
-        {
-            "path": "src/RXUtils.js",
-            "bundle": true,  
-            "update": "delta"
-        }*/  
+            
     ],
 
     /**

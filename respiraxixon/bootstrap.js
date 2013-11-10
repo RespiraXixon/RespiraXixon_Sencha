@@ -6,7 +6,6 @@
  */
 Ext.Loader.addClassPathMappings({
   "Ext": "touch/src",
-  "Ext.data.reader.GeoJson": "src/ux/data/reader/GeoJson.js",
   "Ext.device.Purchases.Product": "touch/src/device/purchases/Sencha.js",
   "Ext.device.filesystem.DirectoryEntry": "touch/src/device/filesystem/HTML5.js",
   "Ext.device.filesystem.Entry": "touch/src/device/filesystem/HTML5.js",
@@ -248,9 +247,6 @@ Ext.ClassManager.addNameAlternateMappings({
   ],
   "Ext.data.reader.Array": [
     "Ext.data.ArrayReader"
-  ],
-  "Ext.data.reader.GeoJson": [
-    "Ext.data.GeoJsonReader"
   ],
   "Ext.data.reader.Json": [
     "Ext.data.JsonReader"
@@ -622,17 +618,6 @@ Ext.ClassManager.addNameAlternateMappings({
   "Ext.layout.wrapper.BoxDock": [],
   "Ext.layout.wrapper.Dock": [],
   "Ext.layout.wrapper.Inner": [],
-  "Ext.log.Base": [],
-  "Ext.log.Logger": [],
-  "Ext.log.filter.Filter": [],
-  "Ext.log.filter.Priority": [],
-  "Ext.log.formatter.Default": [],
-  "Ext.log.formatter.Formatter": [],
-  "Ext.log.formatter.Identity": [],
-  "Ext.log.writer.Console": [],
-  "Ext.log.writer.DocumentTitle": [],
-  "Ext.log.writer.Remote": [],
-  "Ext.log.writer.Writer": [],
   "Ext.mixin.Bindable": [],
   "Ext.mixin.Filterable": [],
   "Ext.mixin.Mixin": [],
@@ -1122,9 +1107,6 @@ Ext.ClassManager.addNameAliasMappings({
   "Ext.data.reader.Array": [
     "reader.array"
   ],
-  "Ext.data.reader.GeoJson": [
-    "reader.geojson"
-  ],
   "Ext.data.reader.Json": [
     "reader.json"
   ],
@@ -1575,17 +1557,6 @@ Ext.ClassManager.addNameAliasMappings({
   "Ext.layout.wrapper.BoxDock": [],
   "Ext.layout.wrapper.Dock": [],
   "Ext.layout.wrapper.Inner": [],
-  "Ext.log.Base": [],
-  "Ext.log.Logger": [],
-  "Ext.log.filter.Filter": [],
-  "Ext.log.filter.Priority": [],
-  "Ext.log.formatter.Default": [],
-  "Ext.log.formatter.Formatter": [],
-  "Ext.log.formatter.Identity": [],
-  "Ext.log.writer.Console": [],
-  "Ext.log.writer.DocumentTitle": [],
-  "Ext.log.writer.Remote": [],
-  "Ext.log.writer.Writer": [],
   "Ext.mixin.Bindable": [],
   "Ext.mixin.Filterable": [],
   "Ext.mixin.Mixin": [],

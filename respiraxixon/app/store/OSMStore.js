@@ -21,7 +21,6 @@ Ext.define('RespiraXixon.store.OSMStore', {
     ],
 
     config: {
-    	autoload: true,
         model: 'RespiraXixon.model.OSMModel',
         storeId: 'OSMStore',
         filters: [{
