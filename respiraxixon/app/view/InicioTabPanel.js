@@ -40,7 +40,7 @@ Ext.define('RespiraXixon.view.InicioTabPanel', {
                             mapOptions: {
                                 zoom: 13,
                                 center: {longitude:-5.6626443, latitude:43.5450394},
-                                theme: 'src/Openlayers/theme/default/style.mobile.css'
+                                theme: 'src/OpenLayers/theme/default/style.mobile.css'
                         	}
                         }
              		]

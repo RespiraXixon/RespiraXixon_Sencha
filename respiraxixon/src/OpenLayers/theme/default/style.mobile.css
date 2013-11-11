@@ -144,3 +144,22 @@ span.olGoogleAttribution.hybrid a, span.olGoogleAttribution.satellite a {
 	opacity:0.8;
 	filter: alpha(opacity=80); 
 }
+
+/*
+ * Popup
+ * 
+ */
+.olPopupContent {
+    padding:5px;
+    overflow: auto;
+}
+
+.olPopupCloseBox {
+  background: url("img/close.gif") no-repeat;
+  cursor: pointer;
+}
+
+.olFramedCloudPopupContent {
+    padding: 5px;
+    overflow: auto;
+}

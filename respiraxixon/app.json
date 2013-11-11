@@ -42,10 +42,6 @@
 		{
             "path": "src/OpenLayers/OpenLayers.mobile.js",
             "update":"delta"
-        },        
-        {
-            "path": "src/OpenLayers/User/Control/LayerSwitcher.js",
-            "update":"delta"
         },
         {
             "path": "touch/sencha-touch.js",
