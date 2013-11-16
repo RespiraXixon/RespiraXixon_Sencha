@@ -12,31 +12,44 @@ Ext.define('RespiraXixon.controller.Mapa', {
     config: {
     	stores: ['Estaciones','Contaminantes','Indices','OSMStore'],
         refs: {
-            openLayersMap: '#openlayersmap'
+            openLayersMap: '#openlayersmap',
+            inicioView:'#iniciotab'
         },
         control: {
         	openLayersMap: {
-				maprender: 'onLoad',
-				render: 'onMapRender'
+				maprender: 'onMapRender'
+				//render: 'onMapRender'
+			},
+			inicioView:{
+				inicializa:'geolocaliza'
 			}
+			
         }
     },
 
     init: function() {
     	var me = this;
-    	/*
-		this.control({
-            'openlayersmap': {
-                'beforerender': this.onMapRender
-            }
-        }, this);*/
     },
 
     onMapRender: function(mapPanel) {
     	console.log("render");
-    	var map = mapPanel.getMap();
-        var me = this;
-		//Creamos el layer de control
+    	var map = this.map=mapPanel.getMap();
+
+    	var me = this;
+		
+        //Añadimos el layer de los barrios
+		map.addLayer(this.layers["barriosLayer"]);
+		
+		//Añadimos el layer con los datos de las estaciones
+		map.addLayer(this.layers["indiceGlobalLayer"]);
+
+		//Añadimos el layer de la localización
+		map.addLayer(this.layers["geolocalizacion"]);
+		
+		//Añadimos el control de geolocalización
+		map.addControl(this.controles["geolocalizacionControl"]);
+		        
+        //Creamos el layer de control
         
 		var controles = [
 	        				new OpenLayers.Control.LayerSwitcher(),
@@ -51,30 +64,37 @@ Ext.define('RespiraXixon.controller.Mapa', {
         map.addControls(controles);
 
         if (this.layers["indiceGlobalLayer"]&&this.layers["geolocalizacion"]){
-        		var control = new OpenLayers.Control.SelectFeature([this.layers["indiceGlobalLayer"],this.layers["geolocalizacion"]],{geometryTypes: ["OpenLayers.Geometry.Point"]});
+        		var control = new OpenLayers.Control.SelectFeature([this.layers["barriosLayer"],this.layers["indiceGlobalLayer"],this.layers["geolocalizacion"]]);
 				map.addControl(control);
 				control.activate();
+				this.controles["geolocalizacionControl"].activate();
         }
     },
 
     launch: function() {
         var me = this;
         
+        var contaminantes = Ext.getStore('Contaminantes');
+            contaminantes.on({
+                load: 'onContaminantesLoad',
+                scope: this
+            });
+        //contaminantes.load();
+   		var OSMStore = Ext.getStore('OSMStore');
+            OSMStore.on({
+                load: 'onOSMStoreLoad',
+                scope: this
+            });
+        
         // for dev purpose
         ctrl = this;
     },
-	geolocaliza: function(map){
+    
+	geolocaliza: function(){
 		console.log("geolocaliza");
 		//Creo la capa de geolocalizacion
     	var vector = new OpenLayers.Layer.Vector("Geolocalizacion", {});
-    	
-    	var style = {
-	        fillOpacity: 0.1,
-	        fillColor: '#000',
-	        strokeColor: '#f00',
-	        strokeOpacity: 0.6
-	    };
-        
+    	        
         vector.events.on({
                 "featureselected": function(e) {
                 		feature=e.feature;
@@ -90,11 +110,11 @@ Ext.define('RespiraXixon.controller.Mapa', {
                                      html.toString(),
                                      null, true);
             			feature.popup = popup;
-            			map.addPopup(popup);
+            			this.map.addPopup(popup);
                 },
                 "featureunselected": function(e) {
                 	   	feature=e.feature;
-            			map.removePopup(feature.popup);
+            			this.map.removePopup(feature.popup);
             			feature.popup.destroy();
             			feature.popup = null;
                 }
@@ -116,9 +136,12 @@ Ext.define('RespiraXixon.controller.Mapa', {
 		                e.point,
 		                {}
 		            );
-		        var estacion=Ext.ux.RXUtils.distancia_estacion(map,this.layers["indiceGlobalLayer"],punto);
+		        var estacion=Ext.ux.RXUtils.distancia_estacion(this.layers["indiceGlobalLayer"],punto);
 		        punto.data=estacion.estacion.data;
-		        punto.attributes={"distancia":estacion.distancia};
+		        punto.attributes={
+		        					"distancia":estacion.distancia,
+		        					"estacion":estacion.estacion
+		        				};
 		        
 		        if (punto.data.ind_global_rx_ayt_gijon==0){
 		        	punto.style={
@@ -147,37 +170,14 @@ Ext.define('RespiraXixon.controller.Mapa', {
 	            			graphicYOffset: -26		                
 	            	  };
 		        }
-		        vector.addFeatures([
-					new OpenLayers.Feature.Vector(
-						OpenLayers.Geometry.Polygon.createRegularPolygon(
-				                    new OpenLayers.Geometry.Point(e.point.x, e.point.y),
-				                    e.position.coords.accuracy / 2,
-				                    50,
-				                    0),
-				        			{},
-				        			style
-				        ),
-				        punto
-        		]);
-        		
+		        vector.addFeatures(punto);
     	});
+		
 		this.layers["geolocalizacion"]=vector;
-		map.addLayer(vector);
+				
 		this.controles["geolocalizacionControl"]= geolocate;
-		map.addControl(geolocate);
-		geolocate.activate();
+		
 	},
-    
-    onLoad: function(mapPanel){
-    	console.log("load");
-    	
-    	var contaminantes = Ext.getStore('Contaminantes');
-            contaminantes.on({
-                load: 'onContaminantesLoad',
-                scope: this
-            });
-        contaminantes.load();
-    },
     
     onContaminantesLoad: function() {
     	console.log("indices");
@@ -210,31 +210,16 @@ Ext.define('RespiraXixon.controller.Mapa', {
                                      html.toString(),
                                      null, true);
             			feature.popup = popup;
-            			map.addPopup(popup);
+            			this.map.addPopup(popup);
                 },
                 "featureunselected": function(e) {
                 	   	feature=e.feature;
-            			map.removePopup(feature.popup);
+            			this.map.removePopup(feature.popup);
             			feature.popup.destroy();
             			feature.popup = null;
                 }
             });
-        var openlayermap=Ext.getCmp("openlayersmap");
-        var map=openlayermap.getMap();
 		this.layers["indiceGlobalLayer"]=indiceGlobalLayer;
-		map.addLayer(indiceGlobalLayer);
-		var OSMStore = Ext.getStore('OSMStore');
-            OSMStore.on({
-                load: 'onOSMStoreLoad',
-                scope: this
-            });
-        OSMStore.load();
-		/*
-			var control = new OpenLayers.Control.SelectFeature([indiceGlobalLayer],{geometryTypes: ["OpenLayers.Geometry.Point"]});
-			this.controles["indiceGlobalControl"]=control;
-			map.addControl(control);
-			control.activate();
-		*/
     },
     
     onOSMStoreLoad: function() {
@@ -249,13 +234,66 @@ Ext.define('RespiraXixon.controller.Mapa', {
 		barriosLayer.addFeatures(barrios);
 		
 		var openlayermap=Ext.getCmp("openlayersmap");
+		
+		barriosLayer.events.on({
+                "featureselected": function(e) {
+                		feature=e.feature;
+            			selectedFeature = feature;
+            			var html="<div style='font-size:.8em'>";
+            			for(var key in feature.attributes) {
+								html=html + key + ": "+feature.attributes[key]+"<br>";
+						};
+            			html=html+"</div>";
+            			popup = new OpenLayers.Popup.FramedCloud("chicken", 
+                                     feature.geometry.getBounds().getCenterLonLat(),
+                                     null,
+                                     html.toString(),
+                                     null, true);
+            			feature.popup = popup;
+            			this.map.addPopup(popup);
+                },
+                "featureunselected": function(e) {
+                	   	feature=e.feature;
+            			this.map.removePopup(feature.popup);
+            			feature.popup.destroy();
+            			feature.popup = null;
+                }
+            });
 
 		this.layers["barriosLayer"]=barriosLayer;
+		//Incluyo el distrito en el que está
+		var geo = Ext.create('Ext.util.Geolocation', {
+    					autoUpdate: false
+    	});
+    	
+        geo.on({
+            locationupdate: 'onLocationUpdate',
+            locationerror: 'onLocationError',
+            scope: this
+        });
+        
+		geo.updateLocation();
+	},
+	
+	onLocationUpdate: function(geo) {
 		
-		var map =openlayermap.getMap();
-		map.addLayer(barriosLayer);
-		this.geolocaliza(map);
-		openlayermap.fireEvent('render', openlayermap);
-	}
+		var distrito=Ext.ux.RXUtils.distrito(this.layers["barriosLayer"],geo);
+		
+		var cabecera=Ext.getCmp("cabecera");
+		cabecera.setHtml(cabecera.getHtml()+"<div>"+distrito["nombre"]+"</div>");
+		
+		var riesgo=Ext.ux.RXUtils.botonRiesgo(distrito["ind_global_rx"]);
+		var boton_riesgo=Ext.getCmp("riesgoIndicador");
+   		boton_riesgo.setText(riesgo["text"]);
+   		boton_riesgo.setUi(riesgo["ui"]);
+	},
+	
+	onLocationError:function(geo, bTimeout, bPermissionDenied, bLocationUnavailable, message) {
+					            if(bTimeout){
+					                alert('Timeout occurred.');
+					            } else {
+					                alert('Error occurred.');
+					            }
+   }
 	
 });

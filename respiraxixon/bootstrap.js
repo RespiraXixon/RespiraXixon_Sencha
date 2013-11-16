@@ -759,8 +759,11 @@ Ext.ClassManager.addNameAlternateMappings({
   "RespiraXixon.view.FicherosTabPanel": [],
   "RespiraXixon.view.GraficasTabPanel": [],
   "RespiraXixon.view.IndicadoresChart": [],
+  "RespiraXixon.view.Info": [],
+  "RespiraXixon.view.Inicio": [],
   "RespiraXixon.view.InicioTabPanel": [],
-  "RespiraXixon.view.ParquesTabPanel": []
+  "RespiraXixon.view.LoremIpsum": [],
+  "RespiraXixon.view.Main": []
 });
 Ext.ClassManager.addNameAliasMappings({
   "Ext.AbstractComponent": [],
@@ -1722,8 +1725,15 @@ Ext.ClassManager.addNameAliasMappings({
   "RespiraXixon.view.IndicadoresChart": [
     "widget.indicadoreschart"
   ],
+  "RespiraXixon.view.Info": [
+    "widget.infoView"
+  ],
+  "RespiraXixon.view.Inicio": [
+    "widget.inicioView"
+  ],
   "RespiraXixon.view.InicioTabPanel": [],
-  "RespiraXixon.view.ParquesTabPanel": [
-    "widget.parquestabpanel"
-  ]
+  "RespiraXixon.view.LoremIpsum": [
+    "widget.loremipsum"
+  ],
+  "RespiraXixon.view.Main": []
 });

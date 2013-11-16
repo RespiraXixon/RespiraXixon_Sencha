@@ -78,8 +78,35 @@
     "css": [
         {
             "path": "resources/css/app.css",
+            //"platform": ["desktop","android"],
+            "theme": "Default",
             "update": "delta"
-        }
+        }/*,
+        
+        {
+	        "path": "resources/css/sencha-touch.css",
+	        "platform": ["desktop"],
+	        "update": "delta"
+    	},
+	    {
+	        "path": "resources/css/cupertino.css",
+	        "platform": ["ios"],
+	        "theme": "Cupertino",
+	        "update": "delta"
+	    },
+	    {
+	        "path": "resources/css/cupertino-classic.css",
+	        "platform": ["ios-classic"],
+	        "theme": "CupertinoClassic",
+	        "update": "delta"
+	    },*/
+	    /*Android
+	    {
+	        "path": "resources/css/mountainview.css",
+	        "platform": ["android"],
+	        "theme": "MountainView",
+	        "update": "delta"
+	    }*/
     ],
 
     /**
@@ -112,7 +139,8 @@
         "resources/icons",
         "resources/startup",
         "src/",
-        "datos/"
+        "datos/",
+        "index_iphone.html"
     ],
 
     /**

@@ -1,6 +1,8 @@
 
 Ext.application({
     name: 'RespiraXixon',
+    
+    //profiles: ['Phone', 'Desktop'],
 
     requires: [
         'Ext.MessageBox'
@@ -19,7 +21,8 @@ Ext.application({
         'OSMStore'
     ],
     views: [
-        'InicioTabPanel'
+        'Main',
+        'Inicio'
     ],
     controllers :[
     	'Mapa'
@@ -33,9 +36,10 @@ Ext.application({
     },
 
     isIconPrecomposed: true,
+    fullscreen: true,
 
     startupImage: {
-        '320x460': 'resources/startup/320x460.jpg',
+        '320x460': 'resources/startup/320x460.png',
         '640x920': 'resources/startup/640x920.png',
         '768x1004': 'resources/startup/768x1004.png',
         '748x1024': 'resources/startup/748x1024.png',
@@ -44,19 +48,22 @@ Ext.application({
     },
 
     launch: function() {
-        // Destroy the #appLoadingIndicator element
-        Ext.fly('appLoadingIndicator').destroy();
-
+		
         //Incializamos el path con las imagenes que usa OpenLayers
-        
         OpenLayers.ImgPath = "src/OpenLayers/img/";
         OpenLayers.Lang.setCode('es');
         
-        // Initialize the main view
+		//Cargamos los Stores
         Ext.getStore("Estaciones").load();
 		Ext.getStore("Indices").load();
-		
-		Ext.Viewport.add(Ext.create('RespiraXixon.view.InicioTabPanel', {fullscreen: true}));
+		Ext.getStore("Contaminantes").load(function(){
+				Ext.getStore("OSMStore").load(function(){
+							// Destroy the #appLoadingIndicator element
+			    			Ext.fly('appLoadingIndicator').destroy();
+					        // Initialize the main view
+							Ext.Viewport.add(Ext.create('RespiraXixon.view.Main'));
+				});
+		});
     },
 
     onUpdated: function() {

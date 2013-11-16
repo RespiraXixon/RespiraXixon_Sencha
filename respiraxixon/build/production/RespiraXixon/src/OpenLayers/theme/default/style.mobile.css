@@ -163,3 +163,12 @@ span.olGoogleAttribution.hybrid a, span.olGoogleAttribution.satellite a {
     padding: 5px;
     overflow: auto;
 }
+/* -----------------------
+   OpenLayers
+   ----------------------- */
+.olControlAttribution, .olControlScaleLine {
+        font-family: Arial;
+        font-size: 0.6em;
+        right: 0.5em;
+        bottom: 0.5em;
+}

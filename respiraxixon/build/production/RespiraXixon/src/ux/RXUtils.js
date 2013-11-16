@@ -1,7 +1,8 @@
 Ext.define('Ext.ux.RXUtils', {
     requires: [
     ],
-
+    projorig : new OpenLayers.Projection("EPSG:4326"),
+    projdest : new OpenLayers.Projection("EPSG:3857"),
     alias: 'plugin.rxutils',
 	singleton	: true,
     config: {
@@ -21,7 +22,7 @@ Ext.define('Ext.ux.RXUtils', {
 		console.log(mensaje);
 	},
 		
-	distancia_estacion: function (map,layer,origen){
+	distancia_estacion: function (layer,origen){
 	                origenPoint = origen.geometry;
 	                var distancia;
 	                var i=0;
@@ -32,7 +33,7 @@ Ext.define('Ext.ux.RXUtils', {
 	                		estacion=layer.features[key];
 	                	}else{
 	                		var distancia_aux =origenPoint.distanceTo(layer.features[key].geometry);
-	                		if(distancia_aux<distancia){
+	                		if(distancia_aux<=distancia){
 	                			distancia=distancia_aux;
 	                			estacion=layer.features[key];
 	                		}
@@ -164,11 +165,9 @@ Ext.define('Ext.ux.RXUtils', {
     
     parseaGeoJson:function(store){
     	var features =[];
-    	var projorig = new OpenLayers.Projection("EPSG:4326");
-    	var projdest = new OpenLayers.Projection("EPSG:3857");
 		store.each(function(record){
 			var datos = record.getData();
-			var punto = new OpenLayers.LonLat(datos.longitud,datos.latitud).transform(projorig, projdest);
+			var punto = new OpenLayers.LonLat(datos.longitud,datos.latitud);
 			var geometry = {
 				"type":"point",
 				"coordinates":[punto.lon,punto.lat]
@@ -185,12 +184,14 @@ Ext.define('Ext.ux.RXUtils', {
 			"features":features
 		};
 		var reader= new OpenLayers.Format.GeoJSON();
-		return reader.read(featuresCollection);
+		var aux= reader.read(featuresCollection);
+		for(var i=0; i < aux.length; i++){
+			aux[i].geometry=aux[i].geometry.transform(this.projorig,this.projdest);
+		};
+		return aux;
     },
 	parseaOSMtoGeoJson:function(store){
     	var features =[];
-    	var projorig = new OpenLayers.Projection("EPSG:4326");
-    	var projdest = new OpenLayers.Projection("EPSG:3857");
 		store.each(function(record){
 			var datos = record.getData();
 			var feature={
@@ -207,7 +208,7 @@ Ext.define('Ext.ux.RXUtils', {
 		var reader= new OpenLayers.Format.GeoJSON();
 		var aux=reader.read(featuresCollection);
 		for(var i=0; i < aux.length; i++){
-			aux[i].geometry=aux[i].geometry.transform(projorig,projdest);
+			aux[i].geometry=aux[i].geometry.transform(this.projorig,this.projdest);
 		};
 		return aux;
     },
@@ -215,8 +216,8 @@ Ext.define('Ext.ux.RXUtils', {
 		  for(var i=0; i < barrios.length; i++){
     	  	var distancia=null;
     	  	var estacion=null;
-		  	for(var j=0; j < estaciones.length; j++){
-		  		var centro=barrios[i].geometry.getCentroid();
+    	  	var centro=barrios[i].geometry.getCentroid();
+    	  	for(var j=0; j < estaciones.length; j++){
 		  		var distancia_aux =centro.distanceTo(estaciones[j].geometry);
 		  		if (!distancia){
 	                distancia=distancia_aux;
@@ -288,5 +289,51 @@ Ext.define('Ext.ux.RXUtils', {
 		
 		estilo_barrios.addRules([indice0,indice1,indice2,indice3]);
 		return(estilo_barrios);
+    },
+    
+    distrito: function(layer,origen){
+    	var origenPoint = new OpenLayers.LonLat(origen.getLongitude(),origen.getLatitude()).transform(this.projorig, this.projdest);
+    	var origenPoint = new OpenLayers.Geometry.Point(origenPoint.lon,origenPoint.lat);    	
+    	var distrito="Desconocido";
+    	var indice=-1;
+        var i=0;
+        for (var key in layer.features) {
+        	if (layer.features[key].geometry.containsPoint(origenPoint)){
+        		distrito=layer.features[key].attributes.display_name;
+        		indice=Math.max(layer.features[key].attributes["ind_global_rx_ayt_gijon"],layer.features[key].attributes["ind_global_rx_legal"],layer.features[key].attributes["ind_global_rx_oms"]);
+        		break;
+        	}
+            i++;
+        }               
+	    return ({"nombre":distrito,"ind_global_rx":indice});
+    },
+    botonRiesgo: function(indice){
+    	var riesgos=[
+	    				{
+	    					"text":"DESCONOCIDO",
+	    					"ui":"desconocido"		
+	    				},
+	    				{
+	    					"text":"BAJO",
+	    					"ui":"bajo"		
+	    				},
+	    				{
+	    					"text":"MODERADO",
+	    					"ui":"moderado"		
+	    				},
+	    				{
+	    					"text":"ALTO",
+	    					"ui":"alto"		
+	    				},
+	    				{
+	    					"text":"MUY ALTO",
+	    					"ui":"muy_alto"		
+	    				},
+						{
+	    					"text":"RIESGO AGUDO",
+	    					"ui":"riesgo_agudo"		
+	    				}
+    				];   
+    	return riesgos[indice+1];
     }
 });
