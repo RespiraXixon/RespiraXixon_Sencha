@@ -1,9 +1,7 @@
-//$base-color: rgba(69, 141, 255,1);
-//$active-color: rgba(69, 141, 255,1);
-$bg-color: rgba(69, 141, 255,1) !default;
-$page-bg-color: rgba(69, 141, 255,1) !default;
-$primary-text-color: black !default;
-$secondary-text-color: black !default;
+@import 'paleta_colores';
+
+$page-bg-color: $azul_rx !default;
+$base-color: $azul_2;
 
 // The following two lines import the default Sencha Touch theme. If you are building
 // a new theme, remove them and the add your own CSS on top of the base CSS (which
@@ -11,83 +9,62 @@ $secondary-text-color: black !default;
 @import 'sencha-touch/default';
 @import 'sencha-touch/default/all';
 
+// Custom code goes here..
+@import 'botones_riesgo';
+
+@font-face {
+  font-family: 'Questrial';
+  src: url(../sass/stylesheets/fonts/questrial/Questrial-Regular.otf);
+}
+
+
+.cabecera {
+  color: white;
+  font-family: 'Questrial';
+  font-size: 22px;
+}
+
+.cabecera .distrito{
+  font-size: 35px;
+}
+
+.contenido{
+  margin:5%;
+  border-color: white;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 5px;
+  font-size:20px;
+  font-family: 'Questrial';
+  font-weight: bold;
+  color: white;
+}
+
+.contenido .x-innerhtml{
+  margin-top:5%;
+}
+
+.pie{
+  color: white;
+  font-family: 'Questrial';
+  font-size: 22px;
+}
+.pie .actualizacion{
+  font-size:15px;
+}
+
+
 #touchpad {
   background-color: rgb(100,100,100);
   color: white;
 }
-
-@font-face {
-  font-family: 'Bowhouse';
-  src: url(../sass/stylesheets/fonts/bowhouse/Bowhouse-Bold.otf);
-}
-
- 
+/*
 .x-innerhtml {
     color: white;
-    font-family: 'Bowhouse';
-    font-size: larger;
+    font-family: 'Questrial';
+    font-size: 35px;
 }
-
-// Custom code goes here..
-
-/*
- *Temas de botones de riesgos 
- */
-@include sencha-button-ui('info', rgb(255,255,255) , 'glossy');
-
-.x-button.x-button-desconocido {
-    background-image: none;
-    /*
-    background-color: #650032;
-    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #B20058), color-stop(50%, #7F003F), color-stop(51%, #650032), color-stop(100%, #4C0025));
-    background-image: -webkit-linear-gradient(top, #B20058, #7F003F 50%, #650032 51%, #4C0025);
-    background-image: linear-gradient(top, #B20058, #7F003F 50%, #650032 51%, #4C0025);*/
-}
-
-.x-button.x-button-bajo {
-    background-image: none;
-    background-color: rgb(151,204,0);
-    /*
-    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #B20058), color-stop(50%, #7F003F), color-stop(51%, #650032), color-stop(100%, #4C0025));
-    background-image: -webkit-linear-gradient(top, #B20058, #7F003F 50%, #650032 51%, #4C0025);
-    background-image: linear-gradient(top, #B20058, #7F003F 50%, #650032 51%, #4C0025);*/
-}
-
-.x-button.x-button-moderado {
-    background-image: none;
-    background-color: rgb(0,128,1);
-    /*
-    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #B20058), color-stop(50%, #7F003F), color-stop(51%, #650032), color-stop(100%, #4C0025));
-    background-image: -webkit-linear-gradient(top, #B20058, #7F003F 50%, #650032 51%, #4C0025);
-    background-image: linear-gradient(top, #B20058, #7F003F 50%, #650032 51%, #4C0025);*/
-}
-
-.x-button.x-button-alto {
-    background-image: none;
-    background-color: rgb(255,204,0);
-    /*
-    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #B20058), color-stop(50%, #7F003F), color-stop(51%, #650032), color-stop(100%, #4C0025));
-    background-image: -webkit-linear-gradient(top, #B20058, #7F003F 50%, #650032 51%, #4C0025);
-    background-image: linear-gradient(top, #B20058, #7F003F 50%, #650032 51%, #4C0025);*/
-}
-
-.x-button.x-button-muy_alto {
-    background-image: none;
-    background-color: rgb(255,169,0);
-    /*
-    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #B20058), color-stop(50%, #7F003F), color-stop(51%, #650032), color-stop(100%, #4C0025));
-    background-image: -webkit-linear-gradient(top, #B20058, #7F003F 50%, #650032 51%, #4C0025);
-    background-image: linear-gradient(top, #B20058, #7F003F 50%, #650032 51%, #4C0025);*/
-}
-
-.x-button.x-button-riesgo_agudo {
-    background-image: none;
-    background-color: rgb(255,0,0);
-    /*
-    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #B20058), color-stop(50%, #7F003F), color-stop(51%, #650032), color-stop(100%, #4C0025));
-    background-image: -webkit-linear-gradient(top, #B20058, #7F003F 50%, #650032 51%, #4C0025);
-    background-image: linear-gradient(top, #B20058, #7F003F 50%, #650032 51%, #4C0025);*/
-}
-
+*/
 // Examples of using the icon mixin:
 // @include icon('user');
+

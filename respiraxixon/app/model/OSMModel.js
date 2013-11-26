@@ -40,7 +40,14 @@ Ext.define('RespiraXixon.model.OSMModel', {
 	        		name: "lon"
 	        	},
 	        	{	        		
-	        		name: "display_name"
+	        		name: "display_name",
+	        		convert: function(value, record) {
+							var coma= value.indexOf(",");
+							var coma2= value.indexOf(",",coma+1);
+	        				var localidad = value.substring(coma+1,coma2);
+	        				var distrito = localidad + " - " + value.substring(value.indexOf(" "),coma);
+                			return distrito.toUpperCase();
+            			}
 	        	},
 	        	{
 	        		name: "class"

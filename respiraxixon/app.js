@@ -5,7 +5,7 @@ Ext.application({
     //profiles: ['Phone', 'Desktop'],
 
     requires: [
-        'Ext.MessageBox'
+        'Ext.MessageBox','RespiraXixon.view.Main'
     ],
      models: [
         'Estacion',

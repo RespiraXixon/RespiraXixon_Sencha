@@ -229,9 +229,14 @@ Ext.define('Ext.ux.RXUtils', {
             		}
             	};
 		  	};
+		  	
+		  	barrios[i].attributes["titulo"]=estacion.attributes["titulo"];
+		  	barrios[i].attributes["estacion_lat"]=estacion.attributes["latitud"];
+		  	barrios[i].attributes["estacion_long"]=estacion.attributes["longitud"];
 		  	barrios[i].attributes["ind_global_rx_ayt_gijon"]=estacion.attributes["ind_global_rx_ayt_gijon"];
 		  	barrios[i].attributes["ind_global_rx_legal"]=estacion.attributes["ind_global_rx_legal"];
 		  	barrios[i].attributes["ind_global_rx_oms"]=estacion.attributes["ind_global_rx_oms"];
+		  	
 		};
     },
     estilo_indices:function(indicador){
@@ -247,7 +252,7 @@ Ext.define('Ext.ux.RXUtils', {
 		      value: 0
 		  }),
 		  symbolizer: {
-	         			fillColor : "blue",	
+	         			fillColor : "#a1cc23",	
                        	fillOpacity : 0.4
 	        		  }
 		});
@@ -259,8 +264,8 @@ Ext.define('Ext.ux.RXUtils', {
 		      value: 1
 		  }),
 		  symbolizer: {
-	         			fillColor : "lime",	
-                       	fillOpacity : 0.4
+	         			fillColor : "#8fb227",	
+                       	fillOpacity : 0.6
 	        		  }
 		});
 		var indice2 = new OpenLayers.Rule({
@@ -270,7 +275,7 @@ Ext.define('Ext.ux.RXUtils', {
 		      value: 2
 		  }),
 		  symbolizer: {
-	         			fillColor : "yellow",	
+	         			fillColor : "#fff745",	
                        	fillOpacity : 0.4
 	        		  }
 		});
@@ -282,12 +287,24 @@ Ext.define('Ext.ux.RXUtils', {
 		      value: 3
 		  }),
 		  symbolizer: {
-	         			fillColor : "red",	
+	         			fillColor : "#ff735e",	
                        	fillOpacity : 0.4
 	        		  }
 		});
 		
-		estilo_barrios.addRules([indice0,indice1,indice2,indice3]);
+		var indice4 = new OpenLayers.Rule({
+		  filter: new OpenLayers.Filter.Comparison({
+		      type: OpenLayers.Filter.Comparison.EQUAL_TO,
+		      property: indicador,
+		      value: 4
+		  }),
+		  symbolizer: {
+	         			fillColor : "#e84a55",	
+                       	fillOpacity : 0.6
+	        		  }
+		});
+		
+		estilo_barrios.addRules([indice0,indice1,indice2,indice3,indice4]);
 		return(estilo_barrios);
     },
     

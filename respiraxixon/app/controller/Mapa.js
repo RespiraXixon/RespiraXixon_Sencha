@@ -52,7 +52,7 @@ Ext.define('RespiraXixon.controller.Mapa', {
         //Creamos el layer de control
         
 		var controles = [
-	        				new OpenLayers.Control.LayerSwitcher(),
+	        				//new OpenLayers.Control.LayerSwitcher(),
 	            			new OpenLayers.Control.Attribution(),
 	            			new OpenLayers.Control.TouchNavigation({
 	                			dragPanOptions: {
@@ -64,7 +64,7 @@ Ext.define('RespiraXixon.controller.Mapa', {
         map.addControls(controles);
 
         if (this.layers["indiceGlobalLayer"]&&this.layers["geolocalizacion"]){
-        		var control = new OpenLayers.Control.SelectFeature([this.layers["barriosLayer"],this.layers["indiceGlobalLayer"],this.layers["geolocalizacion"]]);
+        		var control = new OpenLayers.Control.SelectFeature([this.layers["barriosLayer"],/*this.layers["indiceGlobalLayer"],*/this.layers["geolocalizacion"]]);
 				map.addControl(control);
 				control.activate();
 				this.controles["geolocalizacionControl"].activate();
@@ -194,7 +194,7 @@ Ext.define('RespiraXixon.controller.Mapa', {
 		Ext.ux.RXUtils.calcula_indices();
 		var estaciones = Ext.ux.RXUtils.parseaGeoJson(Ext.getStore('Detalle_Estaciones'));
 		indiceGlobalLayer.addFeatures(estaciones);
-		
+		/*TODO:Activar para ver las estaciones
 		indiceGlobalLayer.events.on({
                 "featureselected": function(e) {
                 		feature=e.feature;
@@ -218,7 +218,7 @@ Ext.define('RespiraXixon.controller.Mapa', {
             			feature.popup.destroy();
             			feature.popup = null;
                 }
-            });
+            });*/
 		this.layers["indiceGlobalLayer"]=indiceGlobalLayer;
     },
     
@@ -240,9 +240,19 @@ Ext.define('RespiraXixon.controller.Mapa', {
                 		feature=e.feature;
             			selectedFeature = feature;
             			var html="<div style='font-size:.8em'>";
+            			/* Muestra todos los datos del barrio en el pop-up
             			for(var key in feature.attributes) {
 								html=html + key + ": "+feature.attributes[key]+"<br>";
-						};
+						};*/
+            			html = html + "Distrito: " + feature.attributes["display_name"] +"<br>";
+            			html = html + "Estaci&oacute;n: " + feature.attributes["titulo"] +"<br>";
+            			html = html + "Latitud: " + feature.attributes["estacion_lat"] +"<br>";
+            			html = html + "Longitud: " + feature.attributes["estacion_long"] +"<br>";
+            			html = html + "Indice Ayuntamiento: " + feature.attributes["ind_global_rx_ayt_gijon"] +"<br>";
+            			html = html + "Indice Legal: " + feature.attributes["ind_global_rx_legal"] +"<br>";
+            			html = html + "Indice OMS: " + feature.attributes["ind_global_rx_oms"] +"<br>";
+            			html = html + "Indice Global RX: " + 
+            					Math.max(feature.attributes["ind_global_rx_ayt_gijon"],feature.attributes["ind_global_rx_legal"],feature.attributes["ind_global_rx_oms"]);  
             			html=html+"</div>";
             			popup = new OpenLayers.Popup.FramedCloud("chicken", 
                                      feature.geometry.getBounds().getCenterLonLat(),
@@ -280,7 +290,7 @@ Ext.define('RespiraXixon.controller.Mapa', {
 		var distrito=Ext.ux.RXUtils.distrito(this.layers["barriosLayer"],geo);
 		
 		var cabecera=Ext.getCmp("cabecera");
-		cabecera.setHtml(cabecera.getHtml()+"<div>"+distrito["nombre"]+"</div>");
+		cabecera.setHtml(cabecera.getHtml()+"<div class='distrito'>"+distrito["nombre"]+"</div>");
 		
 		var riesgo=Ext.ux.RXUtils.botonRiesgo(distrito["ind_global_rx"]);
 		var boton_riesgo=Ext.getCmp("riesgoIndicador");
@@ -290,9 +300,13 @@ Ext.define('RespiraXixon.controller.Mapa', {
 	
 	onLocationError:function(geo, bTimeout, bPermissionDenied, bLocationUnavailable, message) {
 					            if(bTimeout){
-					                alert('Timeout occurred.');
+					                alert('Error de TimeOut.');
 					            } else {
-					                alert('Error occurred.');
+					            	var cabecera=Ext.getCmp("cabecera");
+									cabecera.setHtml(cabecera.getHtml()+"<div class='distrito'>DESCONOCIDO</div>");
+									var boton_riesgo=Ext.getCmp("riesgoIndicador");
+   									boton_riesgo.setText("DESCONOCIDO");
+					                alert('La ubicación es desconocida.');
 					            }
    }
 	

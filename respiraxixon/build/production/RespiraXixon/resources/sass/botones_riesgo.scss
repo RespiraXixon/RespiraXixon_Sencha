@@ -1,0 +1,66 @@
+@import 'sencha-touch/default';
+@import 'sencha-touch/default/all';
+
+/*
+ *Temas de botones de riesgos 
+ */
+@include sencha-button-ui('info', rgb(255,255,255) , 'glossy');
+
+.x-button{
+  height:30px;
+  margin-bottom:10px;
+}
+
+.x-button.x-button-desconocido {
+    background-image: none;
+    /*
+    background-color: #650032;
+    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #B20058), color-stop(50%, #7F003F), color-stop(51%, #650032), color-stop(100%, #4C0025));
+    background-image: -webkit-linear-gradient(top, #B20058, #7F003F 50%, #650032 51%, #4C0025);
+    background-image: linear-gradient(top, #B20058, #7F003F 50%, #650032 51%, #4C0025);*/
+}
+
+.x-button.x-button-bajo {
+    background-image: none;
+    background-color: rgb(151,204,0);
+    /*
+    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #B20058), color-stop(50%, #7F003F), color-stop(51%, #650032), color-stop(100%, #4C0025));
+    background-image: -webkit-linear-gradient(top, #B20058, #7F003F 50%, #650032 51%, #4C0025);
+    background-image: linear-gradient(top, #B20058, #7F003F 50%, #650032 51%, #4C0025);*/
+}
+
+.x-button.x-button-moderado {
+    background-image: none;
+    background-color: $azul_rx;
+    /*
+    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #B20058), color-stop(50%, #7F003F), color-stop(51%, #650032), color-stop(100%, #4C0025));
+    background-image: -webkit-linear-gradient(top, #B20058, #7F003F 50%, #650032 51%, #4C0025);
+    background-image: linear-gradient(top, #B20058, #7F003F 50%, #650032 51%, #4C0025);*/
+}
+
+.x-button.x-button-alto {
+    background-image: none;
+    background-color: rgb(255,204,0);
+    /*
+    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #B20058), color-stop(50%, #7F003F), color-stop(51%, #650032), color-stop(100%, #4C0025));
+    background-image: -webkit-linear-gradient(top, #B20058, #7F003F 50%, #650032 51%, #4C0025);
+    background-image: linear-gradient(top, #B20058, #7F003F 50%, #650032 51%, #4C0025);*/
+}
+
+.x-button.x-button-muy_alto {
+    background-image: none;
+    background-color: rgb(255,169,0);
+    /*
+    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #B20058), color-stop(50%, #7F003F), color-stop(51%, #650032), color-stop(100%, #4C0025));
+    background-image: -webkit-linear-gradient(top, #B20058, #7F003F 50%, #650032 51%, #4C0025);
+    background-image: linear-gradient(top, #B20058, #7F003F 50%, #650032 51%, #4C0025);*/
+}
+
+.x-button.x-button-riesgo_agudo {
+    background-image: none;
+    background-color: rgb(255,0,0);
+    /*
+    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #B20058), color-stop(50%, #7F003F), color-stop(51%, #650032), color-stop(100%, #4C0025));
+    background-image: -webkit-linear-gradient(top, #B20058, #7F003F 50%, #650032 51%, #4C0025);
+    background-image: linear-gradient(top, #B20058, #7F003F 50%, #650032 51%, #4C0025);*/
+}

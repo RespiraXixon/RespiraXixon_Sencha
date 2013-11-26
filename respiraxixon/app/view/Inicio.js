@@ -5,83 +5,74 @@ Ext.define('RespiraXixon.view.Inicio', {
         id: 'inicioView',
         layout: {
        				type: 'vbox',
-       				align: 'center'
+       				align: 'center',
+       				pack:'center'
         },
         items: [
             {
                 xtype: 'container',
-                docked: 'top',
-                height: '25%',
+                cls: 'cabecera',
                 id: 'cabecera',
-                html:["<div>AHORA EN </div>"],
-                flex: 1                
+                height:'15%',
+                html:["<div>AHORA EN </div>"]
             },
             {
                 xtype: 'container',
-                height: '50%',
+                cls: 'contenido',
                 id: 'cuerpo',
+                width: '80%',
+                height:'50%',
                 layout: {
-                			type:'vbox',
-		          			align:'center'		          			
-		                },
-		        style: {
-		        	"border-color": "white", 
-					"border-width": "1px",
-					"border-style": "solid",
-					"border-radius": "5px"
-		        },
-                width: '75%',
+       				type: 'vbox',
+       				align: 'center',
+       				pack:'center'
+        		},
                 items: [
                 	{
                 		xtype: 'container',
-                		layout: {
-                			type:'hbox',
-		          			align:'center'
-		                },
                 		id: 'riesgo',
-                		html:["<div>RIESGO PARA LA SALUD</div>"],
+                		html:["<div>EL RIESGO PARA TU SALUD ES</div>"],
                 		items:[
                 			{
                         		xtype: 'button',
 		                        docked: 'bottom',
-		                        height: '50%',
+		                        height: '60%',
 		                        id: 'riesgoIndicador'
                     		}
                 		],
-		                width: '60%',
+		                width: '90%',
 		          		height: '100%'
             		}
-                ],
-                flex: 2                
+                ]                
             },
             {
                 xtype: 'container',
-                docked: 'bottom',
-                height: '25%',
-                id: 'pie',  
-                layout: 'vbox',
+                id: 'pie',
+                cls:'pie',
+                height:'15%',
                 items: [
                 	{
             			xtype: 'panel',
-            			flex: 1,
-            			html:"<div>&Iacute;NDICE GLOBAL</div>",
-            			heigth:"40%"
+            			id: 'pie_html',
+            			html:"<div>SEG&Uacute;N EL &Iacute;NDICE RX GLOBAL</div>" 
         			},
                     {
                         xtype: 'image',
-                        flex: 2,
-                        docked: 'bottom',
+                        height:'60%',
                         id: 'imgpie',
-                        src: 'resources/images/rx.png',
-                        height:"60%"
+                        src: 'resources/images/rx.png'
                     }
                     
-                ],
-                flex: 3                
+                ]                
             }
         ]
     },
      initialize:function(){
     	this.fireEvent('inicializa', this);
+   		//TODO SImulamos la fecha actual de la ultima medida
+    	var d = new Date();
+    	d.setMilliseconds(d.getMilliseconds()-3600000);
+    	var pie_html=Ext.getCmp("pie_html");
+		pie_html.setHtml(pie_html.getHtml()+"<div class='actualizacion'>Ultima Actualización: "+d.toLocaleDateString()+" "+d.toLocaleTimeString() +"</div>");
     }
 });
