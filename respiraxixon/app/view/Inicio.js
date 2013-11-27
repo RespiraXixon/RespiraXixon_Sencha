@@ -73,6 +73,8 @@ Ext.define('RespiraXixon.view.Inicio', {
     	var d = new Date();
     	d.setMilliseconds(d.getMilliseconds()-3600000);
     	var pie_html=Ext.getCmp("pie_html");
-		pie_html.setHtml(pie_html.getHtml()+"<div class='actualizacion'>Ultima Actualización: "+d.toLocaleDateString()+" "+d.toLocaleTimeString() +"</div>");
-    }
+		pie_html.setHtml(pie_html.getHtml()+"<div class='actualizacion'>Ultima Actualización: &nbsp;"+ 
+												d.getDate() + "/" + d.getMonth() + "/" + d.getFullYear() 
+												+ "&nbsp;&nbsp;" +	d.getHours() + ":" + d.getMinutes() + "</div>");
+	}
 });
